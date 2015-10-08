@@ -1,0 +1,31 @@
+== Running Tests
+
+=== Running Unit Tests
+
+----
+grails test-app unit:
+----
+
+Or...
+
+----
+./gradlew test
+----
+
+=== Running Integration Tests
+
+----
+./gradlew integrationTest
+----
+
+Or...
+
+----
+./gradlew iT
+----
+
+=== Running All Tests
+
+----
+./gradlew check
+----

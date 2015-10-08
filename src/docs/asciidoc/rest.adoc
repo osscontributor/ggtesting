@@ -72,7 +72,6 @@ include::{projectdir}/src/integration-test/groovy/demo/MusicFunctionalSpec.groov
 include::{projectdir}/grails-app/controllers/demo/MusicController.groovy[tags=begin_class;query_filter;class_end]
 ----
 
-
 === Test Query Filter
 
 [source,groovy]

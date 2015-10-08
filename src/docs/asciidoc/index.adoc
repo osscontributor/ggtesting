@@ -12,11 +12,17 @@ by Jeff Scott Brown <brownj@ociweb.com> (@jeffscottbrown)
 * Command Objects
 * Tag Libraries
 * REST APIs
+* Running Tests
 
 include::domain_classes.adoc[]
+
 include::controllers.adoc[]
+
 include::tag_libraries.adoc[]
+
 include::rest.adoc[]
+
+include::running_tests.adoc[]
 
 == Thank you!
 
