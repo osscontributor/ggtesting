@@ -38,7 +38,7 @@ asciidoctor {
     doLast {
         def html = new File("$buildDir/asciidoc/revealjs/index.html")
         def fixed = html.text.replace('<body>','<body><div id="header"></div>')
-        fixed = fixed.replace('<h2>Grails 3 Testing Overview</h2>','<div><img width="200" src="images/logo-circle.png" class="frontlogo"></div><h1>Grails 3 Testing Overview</h1>')
+        fixed = fixed.replace('<h1>Grails 3 Testing Overview</h1>','<div><img width="200" src="images/logo-circle.png" class="frontlogo"></div><h1>Grails 3 Testing Overview</h1>')
         html.withWriter('utf-8') { it.write fixed }
     }
 
