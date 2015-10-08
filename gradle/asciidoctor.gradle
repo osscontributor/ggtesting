@@ -1,0 +1,45 @@
+asciidoctor {
+    dependsOn jrubyPrepareGems,download, copyTheme
+    sources {
+        include 'index.adoc'
+    }
+
+    resources {
+        from(sourceDir) {
+            include 'images/**'
+        }
+        from(downloadDir) {
+            include 'reveal.js/**'
+        }
+    }
+
+    backends 'revealjs'
+
+    attributes 'sourcedir': project.sourceSets.main.java.srcDirs[0],
+            'endpoint-url': 'http://example.org',
+            'source-highlighter': 'coderay',
+            'highlightjs-theme': '../../../src/docs/theme/idea.css',
+            'imagesdir': './images',
+            'toc': 'left',
+            'icons': 'font',
+            'setanchors': 'true',
+            'idprefix': '',
+            'idseparator': '-',
+            'basedir': projectDir,
+            'docinfo1': 'true',
+            'project-version': '1.0',
+            'revealjs_transition':'linear',
+            'revealjs_history':'true',
+            'revealjs_slideNumber':'true',
+            'revealjs_theme': 'testing'
+
+    options template_dirs: [new File(templateDir, 'asciidoctor-reveal.js-master/templates/slim').absolutePath]
+
+    doLast {
+        def html = new File("$buildDir/asciidoc/revealjs/index.html")
+        def fixed = html.text.replace('<body>','<body><div id="header"></div>')
+        fixed = fixed.replace('<h2>Grails 3 Testing Overview</h2>','<div><img width="200" src="images/logo-circle.png" class="frontlogo"></div><h1>Grails 3 Testing Overview</h1>')
+        html.withWriter('utf-8') { it.write fixed }
+    }
+
+}
