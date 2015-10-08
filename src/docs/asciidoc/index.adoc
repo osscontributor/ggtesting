@@ -11,10 +11,12 @@ by Jeff Scott Brown <brownj@ociweb.com> (@jeffscottbrown)
 * Domain Classes
 * Command Objects
 * Tag Libraries
+* REST APIs
 
 include::domain_classes.adoc[]
 include::controllers.adoc[]
 include::tag_libraries.adoc[]
+include::rest.adoc[]
 
 == Thank you!
 

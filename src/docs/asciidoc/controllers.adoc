@@ -1,18 +1,20 @@
-== Controller
+== Testing Controllers
+
+=== Controller
 
 [source,groovy]
 ----
 include::{projectdir}/grails-app/controllers/demo/DemoController.groovy[]
 ----
 
-== Command Object Unit Test
+=== Command Object Unit Test
 
 [source,groovy]
 ----
 include::{projectdir}/src/test/groovy/demo/DemoControllerSpec.groovy[tags=class_begin;command_object_spec;class_end]
 ----
 
-== String Conversion Unit Test
+=== String Conversion Unit Test
 
 [source,yml]
 ----

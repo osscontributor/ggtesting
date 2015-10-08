@@ -1,11 +1,13 @@
-== Domain Class
+== Testing Domain Classes
+
+=== Domain Class
 
 [source,groovy]
 ----
 include::{projectdir}/grails-app/domain/demo/Person.groovy[]
 ----
 
-== Domain Class Validation Unit Test
+=== Domain Class Validation Unit Test
 
 [source,groovy]
 ----

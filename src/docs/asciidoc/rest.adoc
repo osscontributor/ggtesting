@@ -1,0 +1,84 @@
+== Testing REST APIs
+
+=== Domain Class
+
+[source,groovy]
+----
+include::{projectdir}/grails-app/domain/demo/Album.groovy[]
+----
+
+=== Rest Controller
+
+[source,groovy]
+----
+include::{projectdir}/grails-app/controllers/demo/MusicController.groovy[tags=begin_class;class_end]
+----
+
+=== URL Mapping
+
+[source,groovy]
+----
+include::{projectdir}/grails-app/controllers/UrlMappings.groovy[]
+----
+
+=== RestClient From Http Builder
+
+[source,groovy]
+----
+include::{projectdir}/build.gradle[tags=begin_dependencies;http_builder;end_dependencies]
+----
+
+=== Create Integration Test
+----
+    grails create-integration-test demo.MusicFunctional
+
+    BUILD SUCCESSFUL
+
+    | Created src/integration-test/groovy/demo/MusicFunctionalSpec.groovy
+----
+
+=== Integration Test
+
+[source,groovy]
+----
+include::{projectdir}/src/integration-test/groovy/demo/MusicFunctionalSpec.groovy[tags=begin_class;end_class]
+----
+
+=== Test No Data
+
+[source,groovy]
+----
+include::{projectdir}/src/integration-test/groovy/demo/MusicFunctionalSpec.groovy[tags=begin_class;no_albums;end_class]
+----
+
+=== Test Create Albums
+
+[source,groovy]
+----
+include::{projectdir}/src/integration-test/groovy/demo/MusicFunctionalSpec.groovy[tags=begin_class;create_albums;end_class]
+----
+
+=== Test Retrieve Albums
+
+[source,groovy]
+----
+include::{projectdir}/src/integration-test/groovy/demo/MusicFunctionalSpec.groovy[tags=begin_class;get_albums;end_class]
+----
+
+=== Query Filter
+
+[source,groovy]
+----
+include::{projectdir}/grails-app/controllers/demo/MusicController.groovy[tags=begin_class;query_filter;class_end]
+----
+
+
+=== Test Query Filter
+
+[source,groovy]
+----
+include::{projectdir}/src/integration-test/groovy/demo/MusicFunctionalSpec.groovy[tags=begin_class;by_genre;end_class]
+----
+<1> /albums?genre=PROGRESSIVE_ROCK
+<2> /albums?genre=HEAVY_METAL
+<3> /albums?genre=BLUES

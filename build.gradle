@@ -60,7 +60,9 @@ dependencyManagement {
     applyMavenExclusions false
 }
 
+// tag::begin_dependencies[]
 dependencies {
+// end::begin_dependencies[]
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-autoconfigure"
@@ -82,7 +84,13 @@ dependencies {
     testRuntime 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.44.0'
 
     console "org.grails:grails-console"
+    // tag::http_builder[]
+
+    compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
+    // end::http_builder[]
+// tag::end_dependencies[]
 }
+// end::end_dependencies[]
 
 task wrapper(type: Wrapper) {
     gradleVersion = gradleWrapperVersion
