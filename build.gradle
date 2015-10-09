@@ -6,7 +6,7 @@ buildscript {
         mavenLocal()
         maven { url "https://repo.grails.org/grails/core" }
     }
-    dependencies {        
+    dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.5.0'
         classpath "org.grails.plugins:hibernate:4.3.10.5"
@@ -86,7 +86,7 @@ dependencies {
     console "org.grails:grails-console"
     // tag::http_builder[]
 
-    compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
+    testCompile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
     // end::http_builder[]
 // tag::end_dependencies[]
 }
