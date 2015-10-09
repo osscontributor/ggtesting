@@ -6,6 +6,15 @@ Jeff Scott Brown <brownj@ociweb.com> - @jeffscottbrown
 :goto:
 :status:
 
+
+== Object Computing Inc.
+
+* St. Louis, MO
+* ~125 Strong
+* In Business 20+ Years
+* Open Source All Along
+* New Home Of Grails!!
+
 == Agenda
 
 * Domain Classes
