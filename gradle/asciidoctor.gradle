@@ -18,7 +18,7 @@ asciidoctor {
     attributes 'sourcedir': project.sourceSets.main.java.srcDirs[0],
             'endpoint-url': 'http://example.org',
             'source-highlighter': 'coderay',
-            'highlightjs-theme': '../../../src/docs/theme/idea.css',
+            'highlightjs-theme': '../../../src/docs/theme/tomorrow.css',
             'imagesdir': './images',
             'toc': 'left',
             'icons': 'font',
