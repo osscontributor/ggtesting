@@ -29,6 +29,8 @@ include::controllers.adoc[]
 
 include::tag_libraries.adoc[]
 
+include::geb.adoc[]
+
 include::rest.adoc[]
 
 include::running_tests.adoc[]
