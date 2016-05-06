@@ -1,5 +1,6 @@
 asciidoctor {
-//    dependsOn jrubyPrepareGems,download, copyTheme
+    version = '1.5.4'
+    dependsOn download, copyTheme
     sources {
         include 'index.adoc'
     }
