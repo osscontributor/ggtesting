@@ -1,0 +1,20 @@
+== Testing Services
+
+=== Services
+
+[source,groovy]
+----
+include::{projectdir}/grails-app/services/demo/MoneyService.groovy[]
+----
+
+[source,groovy]
+----
+include::{projectdir}/grails-app/services/demo/BankService.groovy[]
+----
+
+=== Configuring Beans In Test
+
+[source,groovy]
+----
+include::{projectdir}/src/test/groovy/demo/MoneyServiceSpec.groovy[]
+----

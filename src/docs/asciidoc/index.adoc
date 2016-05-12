@@ -20,6 +20,8 @@ include::domain_classes.adoc[]
 
 include::controllers.adoc[]
 
+include::services.adoc[]
+
 include::tag_libraries.adoc[]
 
 include::geb.adoc[]
