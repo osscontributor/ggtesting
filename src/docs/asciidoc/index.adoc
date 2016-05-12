@@ -33,7 +33,7 @@ Jeff Scott Brown <brownj@ociweb.com> - @jeffscottbrown
 ** 2.5.x, 3.0.x, 3.1.x
 ** Working On 3.2
 * Roadmap
-** 3.2 - Non Blocking / Async GORM
+** 3.2 - Non Blocking / Async GORM, Multitenant GORM
 ** 3.3 - Netty, GORM For SQL
 ** 3.4 - Hadoop YARN, GORM for hBase
 
