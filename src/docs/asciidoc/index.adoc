@@ -6,36 +6,7 @@ Jeff Scott Brown <brownj@ociweb.com> - @jeffscottbrown
 :goto:
 :status:
 
-
-== Object Computing Inc.
-
-* St. Louis, MO
-* ~125 Strong
-* In Business 20+ Years
-* Open Source All Along
-* New Home Of Grails!!
-
-
-== The Grails Team At OCI
-
-* May 2015
-** Jeff Brown and Graeme Rocher
-* March 2016
-** 12 Full Time
-** 9 U.S. - 3 Europe
-* We Will Need More
-** grailsjobs@ociweb.com
-
-
-== The First Year At OCI
-
-* 20+ Releases
-** 2.5.x, 3.0.x, 3.1.x
-** Working On 3.2
-* Roadmap
-** 3.2 - Non Blocking / Async GORM, Multitenant GORM
-** 3.3 - Netty, GORM For SQL
-** 3.4 - Hadoop YARN, GORM for hBase
+include::oci.adoc[]
 
 == Agenda
 
