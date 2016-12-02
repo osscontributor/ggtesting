@@ -1,15 +1,13 @@
 asciidoctor {
-    version = '1.5.4'
-    dependsOn download, copyTheme
+    dependsOn jrubyPrepare, download, copyTheme
     sources {
         include 'index.adoc'
     }
-
     resources {
-        from(sourceDir) {
+        from (sourceDir) {
             include 'images/**'
         }
-        from(downloadDir) {
+        from (downloadDir) {
             include 'reveal.js/**'
         }
     }
@@ -34,7 +32,7 @@ asciidoctor {
             'revealjs_slideNumber':'true',
             'revealjs_theme': 'testing'
 
-    options template_dirs: [new File(templateDir, 'asciidoctor-reveal.js-master/templates/slim').absolutePath]
+    options template_dirs: [new File(templateDir,'templates/slim').absolutePath]
 
     doLast {
         def html = new File("$buildDir/asciidoc/revealjs/index.html")
@@ -42,5 +40,4 @@ asciidoctor {
         fixed = fixed.replace('<h1>Grails 3 Testing Overview</h1>','<div><img width="200" src="images/logo-circle.png" class="frontlogo"></div><h1>Grails 3 Testing Overview</h1>')
         html.withWriter('utf-8') { it.write fixed }
     }
-
 }
