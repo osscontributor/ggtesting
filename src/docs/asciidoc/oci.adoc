@@ -11,19 +11,15 @@
 
 * May 2015
 ** Jeff Brown and Graeme Rocher
-* November 2016
-** 15 Full Time
-** 10 U.S. - 4 Europe - 1 Australia
-* We Will Need More
-** grailsjobs@ociweb.com
+* May 2017
+** 17 Full Time
+** 11 U.S. - 5 Europe - 1 Australia
+* We Need More
+** grailsjobs@objectcomputing.com
 
 
-== The First Year At OCI
+== Grails At OCI
 
-* 20+ Releases
-** 2.5.x, 3.0.x, 3.1.x
-** Working On 3.2
-* Roadmap
-** 3.2 - Non Blocking / Async GORM, Multitenant GORM
-** 3.3 - Netty, GORM For SQL
-** 3.4 - Hadoop YARN, GORM for hBase
+* 30+ Releases Per Year
+** 2.5.x, 3.0.x, 3.1.x, 3.2.x
+** Working On 3.3

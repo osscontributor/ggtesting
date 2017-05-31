@@ -1,5 +1,5 @@
 = Grails 3 Testing Overview
-Jeff Scott Brown <brownj@ociweb.com> - @jeffscottbrown
+Jeff Scott Brown <brownj@objectcomputing.com> - @jeffscottbrown
 :deckjs_transition: fade
 :navigation:
 :menu:
@@ -34,5 +34,5 @@ include::running_tests.adoc[]
 
 * Slides and code : https://github.com/jeffbrown/testingdemo
 * Jeff Scott Brown
-* brownj@ociweb.com
+* brownj@objectcomputing.com
 * @jeffscottbrown
