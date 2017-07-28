@@ -5,7 +5,7 @@
 * ~140 Strong
 * In Business 20+ Years
 * Open Source All Along
-* New Home Of Grails!!
+* Home Of Grails!!
 
 == The Grails Team At OCI
 
