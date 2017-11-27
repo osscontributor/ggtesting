@@ -1,16 +1,12 @@
 #!/bin/bash
 set -e
-cd 3.2.x
-./gradlew clean check --stacktrace
-cd ../3.3.x
-./gradlew clean check --stacktrace
+./gradlew check
 
 EXIT_STATUS=0
 
 echo "Publishing Docs For Branch $TRAVIS_BRANCH"
 if [[ $TRAVIS_BRANCH =~ ^master$ && $TRAVIS_PULL_REQUEST == 'false' ]]; then
 
-  cd ../
   ./gradlew ascii || EXIT_STATUS=$?
   echo "Docs status: $EXIT_STATUS"
 
