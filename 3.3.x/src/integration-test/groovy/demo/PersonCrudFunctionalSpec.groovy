@@ -24,11 +24,7 @@ class PersonCrudFunctionalSpec extends GebSpec {
         at CreatePersonPage
 
         when:
-        def form = $('form')
-        form.firstName = 'Geddy'
-        form.lastName = 'Lee'
-        form.age = '63'
-        form.create().click()
+        populateCreatePersonForm 'Geddy', 'Lee', '63'
 
         then:
         at ShowPersonPage
@@ -40,11 +36,7 @@ class PersonCrudFunctionalSpec extends GebSpec {
         at CreatePersonPage
 
         when:
-        form = $('form')
-        form.firstName = 'Alex'
-        form.lastName = 'Lifeson'
-        form.age = '63'
-        form.create().click()
+        populateCreatePersonForm 'Alex', 'Lifeson', '63'
 
         then:
         at ShowPersonPage
