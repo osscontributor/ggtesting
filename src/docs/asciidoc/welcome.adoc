@@ -1,0 +1,22 @@
+
+== WELCOME!
+
+* Welcome To G3 Summit 2017
+** Austin TX Is Awesome
+* Top Experts And Maintainers Are Here
+** Groovy, Grails, Gradle, Etc...
+* Come See Us At The OCI Table
+** Regster To Win!!
+*** Custom Grails Rubik's Cubes
+*** Google Home
+*** T-Shirts
+
+== About Me
+
+* Jeff Scott Brown
+* Grails Co-Founder
+* OCI (Home Of Grails) Grails Practice Lead
+* @jeffscottbrown
+* brownj@objectomputing.com
+* Slides : https://jeffbrown.github.io/ggtesting
+* Code : https://github.com/jeffbrown/ggtesting

@@ -5,6 +5,7 @@
 :goto:
 :status:
 
+include::welcome.adoc[]
 
 include::oci.adoc[]
 
@@ -42,7 +43,8 @@ include::running_tests.adoc[]
 
 == Thank you!
 
-* Slides and code : https://github.com/jeffbrown/ggtesting
+* Slides : https://jeffbrown.github.io/ggtesting
+* Code : https://github.com/jeffbrown/ggtesting
 * Jeff Scott Brown
 * brownj@objectcomputing.com
 * @jeffscottbrown
