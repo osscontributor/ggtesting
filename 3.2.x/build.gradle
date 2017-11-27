@@ -66,3 +66,17 @@ assets {
     minifyJs = true
     minifyCss = true
 }
+
+test {
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+    }
+}
+
+integrationTest {
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+    }
+}
