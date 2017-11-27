@@ -53,7 +53,7 @@ class MusicFunctionalSpec extends Specification {
         and:
         resp.json.artistName == 'King Crimson'
         resp.json.title == 'Red'
-        resp.json.genre.name == 'PROGRESSIVE_ROCK'
+        resp.json.genre  == 'PROGRESSIVE_ROCK'
 
         when:
         resp = rest.post("http://localhost:${serverPort}/albums") {
@@ -73,7 +73,7 @@ class MusicFunctionalSpec extends Specification {
         and:
         resp.json.artistName == 'Riverside'
         resp.json.title == 'Love, Fear and the Time Machine'
-        resp.json.genre.name == 'PROGRESSIVE_ROCK'
+        resp.json.genre  == 'PROGRESSIVE_ROCK'
 
         when:
         resp = rest.post("http://localhost:${serverPort}/albums") {
@@ -93,7 +93,7 @@ class MusicFunctionalSpec extends Specification {
         and:
         resp.json.artistName == 'Johnny Winter'
         resp.json.title == 'Progressive Blues Experiment'
-        resp.json.genre.name == 'BLUES'
+        resp.json.genre  == 'BLUES'
 
 
         when:
@@ -114,7 +114,7 @@ class MusicFunctionalSpec extends Specification {
         and:
         resp.json.artistName == 'Motorhead'
         resp.json.title == "No Sleep 'til Hammersmith"
-        resp.json.genre.name == 'HEAVY_METAL'
+        resp.json.genre  == 'HEAVY_METAL'
     }
     // end::create_albums[]
 
@@ -133,22 +133,22 @@ class MusicFunctionalSpec extends Specification {
         and:
         resp.json[0].artistName == 'King Crimson'
         resp.json[0].title == 'Red'
-        resp.json[0].genre.name == 'PROGRESSIVE_ROCK'
+        resp.json[0].genre  == 'PROGRESSIVE_ROCK'
 
         and:
         resp.json[1].artistName == 'Riverside'
         resp.json[1].title == 'Love, Fear and the Time Machine'
-        resp.json[1].genre.name == 'PROGRESSIVE_ROCK'
+        resp.json[1].genre  == 'PROGRESSIVE_ROCK'
 
         and:
         resp.json[3].artistName == 'Motorhead'
         resp.json[3].title == "No Sleep 'til Hammersmith"
-        resp.json[3].genre.name == 'HEAVY_METAL'
+        resp.json[3].genre  == 'HEAVY_METAL'
 
         and:
         resp.json[2].artistName == 'Johnny Winter'
         resp.json[2].title == 'Progressive Blues Experiment'
-        resp.json[2].genre.name == 'BLUES'
+        resp.json[2].genre  == 'BLUES'
     }
     // end::get_albums[]
 
