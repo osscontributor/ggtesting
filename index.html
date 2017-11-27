@@ -1,4 +1,22 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta name="author" content="Jeff Scott Brown &lt;brownj@ociweb.com&gt; - @jeffscottbrown" /><title>Grails 3 Testing Overview</title><meta content="yes" name="apple-mobile-web-app-capable" /><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport" /><link href="reveal.js/css/reveal.css" rel="stylesheet" /><link rel="stylesheet" href="reveal.js/css/theme/testing.css" id="theme" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" /><style>/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta content="text/html; charset=" http-equiv="Content-Type">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta content="Asciidoctor 1.5.5" name="generator">
+<meta content="Jeff Scott Brown &lt;brownj@objectcomputing.com&gt; - @jeffscottbrown" name="author">
+<title>Grails 3 Testing Overview</title>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+<style>
+.conum { display: inline-block; color: white !important; background-color: #222222; -webkit-border-radius: 100px; border-radius: 100px; text-align: center; width: 1.2em; height: 1.2em; font-size: 0.9em; font-weight: bold; line-height: 1.2; font-family: Arial, sans-serif; font-style: normal; position: relative; top: -0.1em; }
+.conum * { color: white !important; }
+.conum + b { display: none; }
+.conum:after { content: attr(data-value); }
+.conum:not([data-value]):empty { display: none; }
+.colist table td:first-of-type { padding-right: 0.25em; }
+</style>
+<style>
+/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
 /*pre.CodeRay {background-color:#f7f7f8;}*/
 .CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
 .CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
@@ -86,11 +104,100 @@ table.CodeRay td.code>pre{padding:0}
 .CodeRay .insert .insert{color:#080}
 .CodeRay .delete .delete{color:#800}
 .CodeRay .change .change{color:#66f}
-.CodeRay .head .head{color:#f4f}</style><link href="../../../src/docs/theme/tomorrow.css" rel="stylesheet" /><script>document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script><link rel="stylesheet" href="reveal.js/css/theme/fonts.css" type="text/css"/></head><body><div id="header"></div><div class="reveal"><div class="slides"><section><div><img width="200" src="images/logo-circle.png" class="frontlogo"></div><h1>Grails 3 Testing Overview</h1><p><small>Jeff Scott Brown &lt;brownj@ociweb.com&gt; - @jeffscottbrown</small></p></section><section id="object-computing-inc"><h2>Object Computing Inc.</h2><div class="ulist"><ul><li><p>St. Louis, MO</p></li><li><p>~140 Strong</p></li><li><p>In Business 20+ Years</p></li><li><p>Open Source All Along</p></li><li><p>New Home Of Grails!!</p></li></ul></div></section>
-<section id="the-grails-team-at-oci"><h2>The Grails Team At OCI</h2><div class="ulist"><ul><li><p>May 2015</p><div class="ulist"><ul><li><p>Jeff Brown and Graeme Rocher</p></li></ul></div></li><li><p>March 2016</p><div class="ulist"><ul><li><p>12 Full Time</p></li><li><p>9 U.S. - 3 Europe</p></li></ul></div></li><li><p>We Will Need More</p><div class="ulist"><ul><li><p><a href="mailto:grailsjobs@ociweb.com">grailsjobs@ociweb.com</a></p></li></ul></div></li></ul></div></section>
-<section id="the-first-year-at-oci"><h2>The First Year At OCI</h2><div class="ulist"><ul><li><p>20+ Releases</p><div class="ulist"><ul><li><p>2.5.x, 3.0.x, 3.1.x</p></li><li><p>Working On 3.2</p></li></ul></div></li><li><p>Roadmap</p><div class="ulist"><ul><li><p>3.2 - Non Blocking / Async GORM, Multitenant GORM</p></li><li><p>3.3 - Netty, GORM For SQL</p></li><li><p>3.4 - Hadoop YARN, GORM for hBase</p></li></ul></div></li></ul></div></section>
-<section id="agenda"><h2>Agenda</h2><div class="ulist"><ul><li><p>Domain Classes</p></li><li><p>Command Objects</p></li><li><p>Tag Libraries</p></li><li><p>REST APIs</p></li><li><p>Running Tests</p></li></ul></div></section>
-<section><section id="testing-domain-classes"><h2>Testing Domain Classes</h2></section><section id="domain-class"><h2>Domain Class</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo
+.CodeRay .head .head{color:#f4f}
+</style>
+<link href="deck.js/core/deck.core.css" rel="stylesheet">
+<link href="deck.js/extensions/scale/deck.scale.css" media="screen" rel="stylesheet">
+<link href="deck.js/extensions/goto/deck.goto.css" media="screen" rel="stylesheet">
+<link href="deck.js/extensions/menu/deck.menu.css" media="screen" rel="stylesheet">
+<link href="deck.js/extensions/navigation/deck.navigation.css" media="screen" rel="stylesheet">
+<link href="deck.js/extensions/status/deck.status.css" media="screen" rel="stylesheet">
+<link href="deck.js/extensions/toc/deck.toc.css" media="screen" rel="stylesheet">
+<link href="deck.js/themes/style/web-2.0.css" media="screen" rel="stylesheet">
+<link href="deck.js/themes/transition/fade.css" media="screen" rel="stylesheet">
+<link href="deck.js/core/print.css" media="print" rel="stylesheet">
+<script src="deck.js/modernizr.custom.js"></script>
+</head>
+<body class="article">
+<div class="deck-container">
+<section class="slide" id="title-slide">
+<h1>Grails 3 Testing Overview</h1>
+<span id="author">Jeff Scott Brown &lt;brownj@objectcomputing.com&gt; - @jeffscottbrown</span>
+<br>
+</section>
+<section class="slide" id="object-computing-inc">
+<h2>Object Computing Inc.</h2>
+<div class="ulist">
+<ul>
+<li>St. Louis, MO</li>
+<li>~140 Strong</li>
+<li>In Business 20+ Years</li>
+<li>Open Source All Along</li>
+<li>Home Of Grails!!</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="the-grails-team-at-oci">
+<h2>The Grails Team At OCI</h2>
+<div class="ulist">
+<ul>
+<li><p>
+May 2015<div class="ulist">
+<ul>
+<li>Jeff Brown and Graeme Rocher</li>
+</ul>
+</div></p></li>
+<li><p>
+May 2017<div class="ulist">
+<ul>
+<li>17 Full Time</li>
+<li>11 U.S. - 5 Europe - 1 Australia</li>
+</ul>
+</div></p></li>
+<li><p>
+We Need More<div class="ulist">
+<ul>
+<li><a href="mailto:grailsjobs@objectcomputing.com">grailsjobs@objectcomputing.com</a></li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="grails-at-oci">
+<h2>Grails At OCI</h2>
+<div class="ulist">
+<ul>
+<li><p>
+30+ Releases Per Year<div class="ulist">
+<ul>
+<li>2.5.x, 3.0.x, 3.1.x, 3.2.x</li>
+<li>Working On 3.3</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="agenda">
+<h2>Agenda</h2>
+<div class="ulist">
+<ul>
+<li>Domain Classes</li>
+<li>Command Objects</li>
+<li>Tag Libraries</li>
+<li>REST APIs</li>
+<li>Running Tests</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="testing-domain-classes">
+<h2>Testing Domain Classes</h2>
+
+</section>
+<section class="slide" id="domain-class">
+<h2>Domain Class</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo
 
 <span class="type">class</span> <span class="class">Person</span> {
     <span class="predefined-type">String</span> firstName
@@ -100,7 +207,15 @@ table.CodeRay td.code>pre{padding:0}
     <span class="directive">static</span> constraints = {
         age <span class="key">range</span>: <span class="integer">0</span>..<span class="integer">120</span>
     }
-}</code></pre></div></div></section><section id="domain-class-validation-unit-test"><h2>Domain Class Validation Unit Test</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@TestFor</span>(Person)
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="domain-class-validation-unit-test">
+<h2>Domain Class Validation Unit Test</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@TestFor</span>(Person)
 <span class="type">class</span> <span class="class">PersonSpec</span> <span class="directive">extends</span> Specification {
 
     <span class="annotation">@Unroll</span>(<span class="string"><span class="delimiter">'</span><span class="content">validate on a person with age #personAge should have returned #shouldBeValid</span><span class="delimiter">'</span></span>)
@@ -119,8 +234,19 @@ table.CodeRay td.code>pre{padding:0}
         <span class="integer">121</span>       | <span class="predefined-constant">false</span>
         <span class="integer">122</span>       | <span class="predefined-constant">false</span>
     }
-}</code></pre></div></div></section></section>
-<section><section id="testing-controllers"><h2>Testing Controllers</h2></section><section id="controller"><h2>Controller</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="testing-controllers">
+<h2>Testing Controllers</h2>
+
+</section>
+<section class="slide" id="controller">
+<h2>Controller</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo
 
 <span class="type">class</span> <span class="class">DemoController</span> {
 
@@ -140,7 +266,15 @@ table.CodeRay td.code>pre{padding:0}
         width <span class="key">min</span>: <span class="integer">1</span>
         height <span class="key">min</span>: <span class="integer">1</span>
     }
-}</code></pre></div></div></section><section id="command-object-unit-test"><h2>Command Object Unit Test</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@TestFor</span>(DemoController)
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="command-object-unit-test">
+<h2>Command Object Unit Test</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@TestFor</span>(DemoController)
 <span class="type">class</span> <span class="class">DemoControllerSpec</span> <span class="directive">extends</span> Specification {
     <span class="type">void</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">test command object population</span><span class="delimiter">&quot;</span></span>() {
         <span class="key">when</span>:
@@ -155,10 +289,22 @@ table.CodeRay td.code>pre{padding:0}
         widget.height == <span class="integer">7</span>
         widget.name == <span class="string"><span class="delimiter">'</span><span class="content">fidget</span><span class="delimiter">'</span></span>
     }
-}</code></pre></div></div></section><section id="string-conversion-unit-test"><h2>String Conversion Unit Test</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="yml language-yml"><span class="key">grails</span>:
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="string-conversion-unit-test">
+<h2>String Conversion Unit Test</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="yml language-yml"><span class="key">grails</span>:
     <span class="key">databinding</span>:
-        <span class="key">convertEmptyStringsToNull</span>: <span class="string"><span class="content">false</span></span></code></pre></div></div>
-<div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@TestFor</span>(DemoController)
+        <span class="key">convertEmptyStringsToNull</span>: <span class="string"><span class="content">false</span></span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@TestFor</span>(DemoController)
 <span class="type">class</span> <span class="class">DemoControllerSpec</span> <span class="directive">extends</span> Specification {
     <span class="type">void</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">test that empty strings are not converted to null</span><span class="delimiter">&quot;</span></span>() {
         <span class="key">when</span>: <span class="string"><span class="delimiter">'</span><span class="content">conversion of empty strings to null is disabled in application.yml</span><span class="delimiter">'</span></span>
@@ -174,8 +320,19 @@ table.CodeRay td.code>pre{padding:0}
         widget.height == <span class="integer">7</span>
         widget.name == <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
     }
-}</code></pre></div></div></section></section>
-<section><section id="testing-services"><h2>Testing Services</h2></section><section id="services"><h2>Services</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="testing-services">
+<h2>Testing Services</h2>
+
+</section>
+<section class="slide" id="services">
+<h2>Services</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo
 
 <span class="keyword">import</span> <span class="include">grails.transaction.Transactional</span>
 
@@ -187,15 +344,27 @@ table.CodeRay td.code>pre{padding:0}
     <span class="predefined-type">List</span>&lt;<span class="predefined-type">String</span>&gt; getBankNames() {
         bankService.bankNames*.toUpperCase()
     }
-}</code></pre></div></div>
-<div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo
 
 <span class="type">class</span> <span class="class">BankService</span> {
 
     <span class="predefined-type">List</span>&lt;<span class="predefined-type">String</span>&gt; getBankNames() {
         [<span class="string"><span class="delimiter">'</span><span class="content">Commerce</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Fidelity</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Mark Twain</span><span class="delimiter">'</span></span>]
     }
-}</code></pre></div></div></section><section id="configuring-beans-in-test"><h2>Configuring Beans In Test</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="configuring-beans-in-test">
+<h2>Configuring Beans In Test</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo
 
 <span class="keyword">import</span> <span class="include">grails.test.mixin.TestFor</span>
 <span class="keyword">import</span> <span class="include">spock.lang.Specification</span>
@@ -216,8 +385,19 @@ table.CodeRay td.code>pre{padding:0}
     <span class="predefined-type">List</span>&lt;<span class="predefined-type">String</span>&gt; getBankNames() {
         [<span class="string"><span class="delimiter">'</span><span class="content">Bank One</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Bank Two</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Bank Three</span><span class="delimiter">'</span></span>]
     }
-}</code></pre></div></div></section></section>
-<section><section id="testing-tag-libraries"><h2>Testing Tag Libraries</h2></section><section id="tag-library"><h2>Tag Library</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="testing-tag-libraries">
+<h2>Testing Tag Libraries</h2>
+
+</section>
+<section class="slide" id="tag-library">
+<h2>Tag Library</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo
 
 <span class="type">class</span> <span class="class">HelperTagLib</span> {
     <span class="directive">static</span> defaultEncodeAs = [<span class="key">taglib</span>:<span class="string"><span class="delimiter">'</span><span class="content">html</span><span class="delimiter">'</span></span>]
@@ -234,28 +414,60 @@ table.CodeRay td.code>pre{padding:0}
             out &lt;&lt; body()
         }
     }
-}</code></pre></div></div></section><section id="testing-simple-tag"><h2>Testing Simple Tag</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@TestFor</span>(HelperTagLib)
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="testing-simple-tag">
+<h2>Testing Simple Tag</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@TestFor</span>(HelperTagLib)
 <span class="type">class</span> <span class="class">HelperTagLibSpec</span> <span class="directive">extends</span> Specification {
 
     <span class="type">void</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">test sayHello</span><span class="delimiter">&quot;</span></span>() {
         <span class="key">expect</span>:
         applyTemplate(<span class="string"><span class="delimiter">'</span><span class="content">&lt;demo:sayHello name=&quot;Jeff&quot;/&gt;</span><span class="delimiter">'</span></span>) == <span class="string"><span class="delimiter">'</span><span class="content">Hi there Jeff</span><span class="delimiter">'</span></span>
     }
-}</code></pre></div></div></section><section id="testing-tag-with-body"><h2>Testing Tag With Body</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@TestFor</span>(HelperTagLib)
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="testing-tag-with-body">
+<h2>Testing Tag With Body</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@TestFor</span>(HelperTagLib)
 <span class="type">class</span> <span class="class">HelperTagLibSpec</span> <span class="directive">extends</span> Specification {
 
     <span class="type">void</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">test repeat</span><span class="delimiter">&quot;</span></span>() {
         <span class="key">expect</span>:
         applyTemplate(<span class="string"><span class="delimiter">'</span><span class="content">&lt;demo:repeat count=&quot;4&quot;&gt;the body &lt;/demo:repeat&gt;</span><span class="delimiter">'</span></span>) == <span class="string"><span class="delimiter">'</span><span class="content">the body the body the body the body </span><span class="delimiter">'</span></span>
     }
-}</code></pre></div></div></section><section id="testing-tag-with-body-2"><h2>Testing Tag With Body</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@TestFor</span>(HelperTagLib)
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="testing-tag-with-body-2">
+<h2>Testing Tag With Body</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@TestFor</span>(HelperTagLib)
 <span class="type">class</span> <span class="class">HelperTagLibSpec</span> <span class="directive">extends</span> Specification {
 
     <span class="type">void</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">test repeat with no count</span><span class="delimiter">&quot;</span></span>() {
         <span class="key">expect</span>:
         applyTemplate(<span class="string"><span class="delimiter">'</span><span class="content">&lt;demo:repeat&gt;the body &lt;/demo:repeat&gt;</span><span class="delimiter">'</span></span>) == <span class="string"><span class="delimiter">'</span><span class="content">the body the body the body </span><span class="delimiter">'</span></span>
     }
-}</code></pre></div></div></section><section id="testing-tag-method-call"><h2>Testing Tag Method Call</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@TestFor</span>(HelperTagLib)
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="testing-tag-method-call">
+<h2>Testing Tag Method Call</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@TestFor</span>(HelperTagLib)
 <span class="type">class</span> <span class="class">HelperTagLibSpec</span> <span class="directive">extends</span> Specification {
 
     <span class="type">void</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">test tag method calls</span><span class="delimiter">&quot;</span></span>() {
@@ -264,8 +476,19 @@ table.CodeRay td.code>pre{padding:0}
         tagLib.repeat(<span class="key">count</span>: <span class="integer">4</span>) { <span class="string"><span class="delimiter">'</span><span class="content">yes</span><span class="delimiter">'</span></span> } == <span class="string"><span class="delimiter">'</span><span class="content">yesyesyesyes</span><span class="delimiter">'</span></span>
         tagLib.repeat() { <span class="string"><span class="delimiter">'</span><span class="content">yes</span><span class="delimiter">'</span></span> } == <span class="string"><span class="delimiter">'</span><span class="content">yesyesyes</span><span class="delimiter">'</span></span>
     }
-}</code></pre></div></div></section></section>
-<section><section id="testing-with-geb"><h2>Testing With Geb</h2></section><section id="gebspec"><h2>GebSpec</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">import</span> <span class="include">geb.spock.GebSpec</span>
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="testing-with-geb">
+<h2>Testing With Geb</h2>
+
+</section>
+<section class="slide" id="gebspec">
+<h2>GebSpec</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">import</span> <span class="include">geb.spock.GebSpec</span>
 <span class="keyword">import</span> <span class="include">grails.test.mixin.integration.Integration</span>
 <span class="keyword">import</span> <span class="include">spock.lang.Stepwise</span>
 
@@ -273,62 +496,153 @@ table.CodeRay td.code>pre{padding:0}
 <span class="annotation">@Stepwise</span>
 <span class="type">class</span> <span class="class">PersonCrudFunctionalSpec</span> <span class="directive">extends</span> GebSpec {
 
-}</code></pre></div></div></section><section id="filling-out-a-form"><h2>Filling Out A Form</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy">    <span class="type">void</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">test creating people</span><span class="delimiter">&quot;</span></span>() {
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="filling-out-a-form">
+<h2>Filling Out A Form</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="type">void</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">test creating people</span><span class="delimiter">&quot;</span></span>() {
         <span class="key">when</span>:
-        go <span class="string"><span class="delimiter">'</span><span class="content">/person/create</span><span class="delimiter">'</span></span>
+        to CreatePersonPage
 
         <span class="key">then</span>:
-        <span class="error">$</span>(<span class="string"><span class="delimiter">'</span><span class="content">title</span><span class="delimiter">'</span></span>).text() == <span class="string"><span class="delimiter">'</span><span class="content">Create Person</span><span class="delimiter">'</span></span>
+        at CreatePersonPage
 
         <span class="key">when</span>:
-        <span class="keyword">def</span> form = <span class="error">$</span>(<span class="string"><span class="delimiter">'</span><span class="content">form</span><span class="delimiter">'</span></span>)
-        form.firstName = <span class="string"><span class="delimiter">'</span><span class="content">Geddy</span><span class="delimiter">'</span></span>
-        form.lastName = <span class="string"><span class="delimiter">'</span><span class="content">Lee</span><span class="delimiter">'</span></span>
-        form.age = <span class="string"><span class="delimiter">'</span><span class="content">63</span><span class="delimiter">'</span></span>
-        form.create().click()
+        populateCreatePersonForm <span class="string"><span class="delimiter">'</span><span class="content">Geddy</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Lee</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">63</span><span class="delimiter">'</span></span>
 
         <span class="key">then</span>:
-        <span class="error">$</span>(<span class="string"><span class="delimiter">'</span><span class="content">title</span><span class="delimiter">'</span></span>).text() == <span class="string"><span class="delimiter">'</span><span class="content">Show Person</span><span class="delimiter">'</span></span>
+        at ShowPersonPage
 
         <span class="key">when</span>:
-        go <span class="string"><span class="delimiter">'</span><span class="content">/person/create</span><span class="delimiter">'</span></span>
+        to CreatePersonPage
 
         <span class="key">then</span>:
-        <span class="error">$</span>(<span class="string"><span class="delimiter">'</span><span class="content">title</span><span class="delimiter">'</span></span>).text() == <span class="string"><span class="delimiter">'</span><span class="content">Create Person</span><span class="delimiter">'</span></span>
+        at CreatePersonPage
 
         <span class="key">when</span>:
-        form = <span class="error">$</span>(<span class="string"><span class="delimiter">'</span><span class="content">form</span><span class="delimiter">'</span></span>)
-        form.firstName = <span class="string"><span class="delimiter">'</span><span class="content">Alex</span><span class="delimiter">'</span></span>
-        form.lastName = <span class="string"><span class="delimiter">'</span><span class="content">Lifeson</span><span class="delimiter">'</span></span>
-        form.age = <span class="string"><span class="delimiter">'</span><span class="content">63</span><span class="delimiter">'</span></span>
-        form.create().click()
+        populateCreatePersonForm <span class="string"><span class="delimiter">'</span><span class="content">Alex</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Lifeson</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">63</span><span class="delimiter">'</span></span>
 
         <span class="key">then</span>:
-        <span class="error">$</span>(<span class="string"><span class="delimiter">'</span><span class="content">title</span><span class="delimiter">'</span></span>).text() == <span class="string"><span class="delimiter">'</span><span class="content">Show Person</span><span class="delimiter">'</span></span>
-    }</code></pre></div></div></section><section id="inspecting-a-page"><h2>Inspecting A Page</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy">    <span class="type">void</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">test retrieving people</span><span class="delimiter">&quot;</span></span>() {
+        at ShowPersonPage
+    }</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="the-createpersonpage">
+<h2>The CreatePersonPage</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo.pages
+
+<span class="keyword">import</span> <span class="include">geb.Page</span>
+
+<span class="type">class</span> <span class="class">CreatePersonPage</span> <span class="directive">extends</span> Page {
+
+    <span class="directive">static</span> url = <span class="string"><span class="delimiter">'</span><span class="content">/person/create</span><span class="delimiter">'</span></span>
+
+    <span class="directive">static</span> at = {
+        title == <span class="string"><span class="delimiter">'</span><span class="content">Create Person</span><span class="delimiter">'</span></span>
+    }
+
+    <span class="directive">static</span> content = {
+        submitButton { <span class="error">$</span>(<span class="string"><span class="delimiter">'</span><span class="content">#create</span><span class="delimiter">'</span></span>, <span class="integer">0</span>) }
+        firstNameInputField { <span class="error">$</span>(<span class="string"><span class="delimiter">'</span><span class="content">#firstName</span><span class="delimiter">'</span></span>, <span class="integer">0</span>) }
+        lastNameInputField { <span class="error">$</span>(<span class="string"><span class="delimiter">'</span><span class="content">#lastName</span><span class="delimiter">'</span></span>, <span class="integer">0</span>) }
+        ageInputField { <span class="error">$</span>(<span class="string"><span class="delimiter">'</span><span class="content">#age</span><span class="delimiter">'</span></span>, <span class="integer">0</span>) }
+    }
+
+    <span class="type">void</span> populateCreatePersonForm(<span class="predefined-type">String</span> firstName, <span class="predefined-type">String</span> lastName, <span class="predefined-type">String</span> age) {
+        firstNameInputField &lt;&lt; firstName
+        lastNameInputField &lt;&lt; lastName
+        ageInputField &lt;&lt; age
+        submitButton.click()
+    }
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="inspecting-a-page">
+<h2>Inspecting A Page</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="type">void</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">test retrieving people</span><span class="delimiter">&quot;</span></span>() {
         <span class="key">when</span>:
-        go <span class="string"><span class="delimiter">'</span><span class="content">/person/index</span><span class="delimiter">'</span></span>
+        to PersonListPage
 
         <span class="key">then</span>:
-        <span class="error">$</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">tr</span><span class="delimiter">&quot;</span></span>, <span class="integer">1</span>).has(<span class="string"><span class="delimiter">'</span><span class="content">td</span><span class="delimiter">'</span></span>, <span class="key">text</span>: <span class="string"><span class="delimiter">'</span><span class="content">Geddy</span><span class="delimiter">'</span></span>)
-        <span class="error">$</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">tr</span><span class="delimiter">&quot;</span></span>, <span class="integer">1</span>).has(<span class="string"><span class="delimiter">'</span><span class="content">td</span><span class="delimiter">'</span></span>, <span class="key">text</span>: <span class="string"><span class="delimiter">'</span><span class="content">Lee</span><span class="delimiter">'</span></span>)
-        <span class="error">$</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">tr</span><span class="delimiter">&quot;</span></span>, <span class="integer">2</span>).has(<span class="string"><span class="delimiter">'</span><span class="content">td</span><span class="delimiter">'</span></span>, <span class="key">text</span>: <span class="string"><span class="delimiter">'</span><span class="content">Alex</span><span class="delimiter">'</span></span>)
-        <span class="error">$</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">tr</span><span class="delimiter">&quot;</span></span>, <span class="integer">2</span>).has(<span class="string"><span class="delimiter">'</span><span class="content">td</span><span class="delimiter">'</span></span>, <span class="key">text</span>: <span class="string"><span class="delimiter">'</span><span class="content">Lifeson</span><span class="delimiter">'</span></span>)
-    }</code></pre></div></div></section></section>
-<section><section id="testing-rest-apis"><h2>Testing REST APIs</h2></section><section id="domain-class-2"><h2>Domain Class</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo
+        numberOfPersonRows == <span class="integer">2</span>
+    }</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="the-personlistpage">
+<h2>The PersonListPage</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo.pages
+
+<span class="keyword">import</span> <span class="include">geb.Page</span>
+
+<span class="type">class</span> <span class="class">PersonListPage</span> <span class="directive">extends</span> Page {
+
+    <span class="directive">static</span> url = <span class="string"><span class="delimiter">'</span><span class="content">/person</span><span class="delimiter">'</span></span>
+
+    <span class="directive">static</span> at = {
+        title == <span class="string"><span class="delimiter">'</span><span class="content">Person List</span><span class="delimiter">'</span></span>
+    }
+
+    <span class="directive">static</span> content = {
+        personRows { <span class="error">$</span>(<span class="string"><span class="delimiter">'</span><span class="content">table tbody tr</span><span class="delimiter">'</span></span>) }
+        numberOfPersonRows { personRows.size() }
+    }
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="testing-rest-apis">
+<h2>Testing REST APIs</h2>
+
+</section>
+<section class="slide" id="domain-class-2">
+<h2>Domain Class</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> demo
 
 <span class="type">class</span> <span class="class">Album</span> {
     <span class="predefined-type">String</span> artistName
     <span class="predefined-type">String</span> title
-    Genre genre
-}</code></pre></div></div></section><section id="rest-controller"><h2>Rest Controller</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="type">class</span> <span class="class">MusicController</span> <span class="directive">extends</span> RestfulController&lt;Album&gt; {
+    <span class="predefined-type">String</span> genre
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="rest-controller">
+<h2>Rest Controller</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="type">class</span> <span class="class">MusicController</span> <span class="directive">extends</span> RestfulController&lt;Album&gt; {
 
     <span class="directive">static</span> responseFormats = [<span class="string"><span class="delimiter">'</span><span class="content">json</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">xml</span><span class="delimiter">'</span></span>]
 
     <span class="directive">public</span> MusicController() {
         <span class="local-variable">super</span>(Album)
     }
-}</code></pre></div></div></section><section id="url-mapping"><h2>URL Mapping</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="type">class</span> <span class="class">UrlMappings</span> {
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="url-mapping">
+<h2>URL Mapping</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="keyword">package</span> testingdemo
+
+<span class="type">class</span> <span class="class">UrlMappings</span> {
 
     <span class="directive">static</span> mappings = {
         <span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="inline"><span class="inline-delimiter">$</span>controller</span><span class="content">/</span><span class="inline"><span class="inline-delimiter">$</span>action</span><span class="content">?/</span><span class="inline"><span class="inline-delimiter">$</span>id</span><span class="content">?(.</span><span class="inline"><span class="inline-delimiter">$</span>format</span><span class="content">)?</span><span class="delimiter">&quot;</span></span>{
@@ -338,150 +652,228 @@ table.CodeRay td.code>pre{padding:0}
         }
 
         <span class="string"><span class="delimiter">&quot;</span><span class="content">/albums</span><span class="delimiter">&quot;</span></span>(<span class="key">resources</span>: <span class="string"><span class="delimiter">'</span><span class="content">music</span><span class="delimiter">'</span></span>)
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">/genre/</span><span class="inline"><span class="inline-delimiter">$</span>genre</span><span class="content">/albums</span><span class="delimiter">&quot;</span></span>(<span class="key">controller</span>: <span class="string"><span class="delimiter">'</span><span class="content">music</span><span class="delimiter">'</span></span>)
 
         <span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span>(<span class="key">view</span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">/index</span><span class="delimiter">&quot;</span></span>)
         <span class="string"><span class="delimiter">&quot;</span><span class="content">500</span><span class="delimiter">&quot;</span></span>(<span class="key">view</span>:<span class="string"><span class="delimiter">'</span><span class="content">/error</span><span class="delimiter">'</span></span>)
         <span class="string"><span class="delimiter">&quot;</span><span class="content">404</span><span class="delimiter">&quot;</span></span>(<span class="key">view</span>:<span class="string"><span class="delimiter">'</span><span class="content">/notFound</span><span class="delimiter">'</span></span>)
     }
-}</code></pre></div></div></section><section id="restclient-from-http-builder"><h2>RestClient From Http Builder</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy">dependencies {
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="restclient-from-http-builder">
+<h2>RestClient From Http Builder</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy">dependencies {
 
-    testCompile <span class="string"><span class="delimiter">'</span><span class="content">org.codehaus.groovy.modules.http-builder:http-builder:0.7.1</span><span class="delimiter">'</span></span>
-}</code></pre></div></div></section><section id="create-integration-test"><h2>Create Integration Test</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code>    grails create-integration-test demo.MusicFunctional
+     testCompile <span class="string"><span class="delimiter">&quot;</span><span class="content">org.grails:grails-datastore-rest-client</span><span class="delimiter">&quot;</span></span>
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="create-integration-test">
+<h2>Create Integration Test</h2>
+<div class="listingblock">
+<div class="content">
+<pre><code>grails create-integration-test demo.MusicFunctional
 
     BUILD SUCCESSFUL
 
-    | Created src/integration-test/groovy/demo/MusicFunctionalSpec.groovy</code></pre></div></div></section><section id="integration-test"><h2>Integration Test</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@Integration</span>
+    | Created src/integration-test/groovy/demo/MusicFunctionalSpec.groovy</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="integration-test">
+<h2>Integration Test</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@Integration</span>
 <span class="annotation">@Stepwise</span>
 <span class="type">class</span> <span class="class">MusicFunctionalSpec</span> <span class="directive">extends</span> Specification {
 
     <span class="annotation">@Shared</span>
-    <span class="keyword">def</span> rest = <span class="keyword">new</span> RESTClient(<span class="string"><span class="delimiter">'</span><span class="content">http://localhost:8080/</span><span class="delimiter">'</span></span>)
+    <span class="keyword">def</span> rest = <span class="keyword">new</span> RestBuilder()
 
-}</code></pre></div></div></section><section id="test-no-data"><h2>Test No Data</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@Integration</span>
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="test-no-data">
+<h2>Test No Data</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@Integration</span>
 <span class="annotation">@Stepwise</span>
 <span class="type">class</span> <span class="class">MusicFunctionalSpec</span> <span class="directive">extends</span> Specification {
 
     <span class="annotation">@Shared</span>
-    <span class="keyword">def</span> rest = <span class="keyword">new</span> RESTClient(<span class="string"><span class="delimiter">'</span><span class="content">http://localhost:8080/</span><span class="delimiter">'</span></span>)
+    <span class="keyword">def</span> rest = <span class="keyword">new</span> RestBuilder()
 
     <span class="type">void</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">test that no albums exist</span><span class="delimiter">&quot;</span></span>() {
         <span class="key">when</span>:
-        <span class="keyword">def</span> resp = rest.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">albums</span><span class="delimiter">'</span></span>)
+        <span class="keyword">def</span> resp = rest.get(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://localhost:</span><span class="inline"><span class="inline-delimiter">${</span>serverPort<span class="inline-delimiter">}</span></span><span class="content">/albums</span><span class="delimiter">&quot;</span></span>)
+        <span class="keyword">def</span> contentType = resp.headers.getContentType()
 
         <span class="key">then</span>:
-        resp.status == HttpStatus.OK.value()
-        resp.contentType == MimeType.JSON.name
-        resp.data.size() == <span class="integer">0</span>
+        resp.status == OK.value()
+        contentType.subtype == <span class="string"><span class="delimiter">'</span><span class="content">json</span><span class="delimiter">'</span></span>
+        contentType.type == <span class="string"><span class="delimiter">'</span><span class="content">application</span><span class="delimiter">'</span></span>
+        resp.json.size() == <span class="integer">0</span>
     }
-}</code></pre></div></div></section><section id="test-create-albums"><h2>Test Create Albums</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@Integration</span>
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="test-create-albums">
+<h2>Test Create Albums</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@Integration</span>
 <span class="annotation">@Stepwise</span>
 <span class="type">class</span> <span class="class">MusicFunctionalSpec</span> <span class="directive">extends</span> Specification {
 
     <span class="annotation">@Shared</span>
-    <span class="keyword">def</span> rest = <span class="keyword">new</span> RESTClient(<span class="string"><span class="delimiter">'</span><span class="content">http://localhost:8080/</span><span class="delimiter">'</span></span>)
+    <span class="keyword">def</span> rest = <span class="keyword">new</span> RestBuilder()
 
     <span class="type">void</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">test creating albums</span><span class="delimiter">&quot;</span></span>() {
         <span class="key">when</span>:
-        <span class="keyword">def</span> resp = rest.post(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">albums</span><span class="delimiter">'</span></span>,
-                <span class="key">body</span>: [<span class="key">artistName</span>: <span class="string"><span class="delimiter">'</span><span class="content">King Crimson</span><span class="delimiter">'</span></span>,
-                       <span class="key">title</span>: <span class="string"><span class="delimiter">'</span><span class="content">Red</span><span class="delimiter">'</span></span>,
-                       <span class="key">genre</span>: <span class="string"><span class="delimiter">'</span><span class="content">PROGRESSIVE_ROCK</span><span class="delimiter">'</span></span>],
-                <span class="key">requestContentType</span>: ContentType.JSON)
+        <span class="keyword">def</span> resp = rest.post(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://localhost:</span><span class="inline"><span class="inline-delimiter">${</span>serverPort<span class="inline-delimiter">}</span></span><span class="content">/albums</span><span class="delimiter">&quot;</span></span>) {
+            json {
+                artistName = <span class="string"><span class="delimiter">'</span><span class="content">King Crimson</span><span class="delimiter">'</span></span>
+                title = <span class="string"><span class="delimiter">'</span><span class="content">Red</span><span class="delimiter">'</span></span>
+                genre = <span class="string"><span class="delimiter">'</span><span class="content">PROGRESSIVE_ROCK</span><span class="delimiter">'</span></span>
+            }
+        }
+        <span class="keyword">def</span> contentType = resp.headers.getContentType()
 
         <span class="key">then</span>:
-        resp.status == HttpStatus.CREATED.value()
-        resp.contentType == <span class="string"><span class="delimiter">'</span><span class="content">application/json</span><span class="delimiter">'</span></span>
+        resp.status == CREATED.value()
+        contentType.subtype == <span class="string"><span class="delimiter">'</span><span class="content">json</span><span class="delimiter">'</span></span>
+        contentType.type == <span class="string"><span class="delimiter">'</span><span class="content">application</span><span class="delimiter">'</span></span>
 
         <span class="key">and</span>:
-        resp.data.artistName == <span class="string"><span class="delimiter">'</span><span class="content">King Crimson</span><span class="delimiter">'</span></span>
-        resp.data.title == <span class="string"><span class="delimiter">'</span><span class="content">Red</span><span class="delimiter">'</span></span>
-        resp.data.genre.name == <span class="string"><span class="delimiter">'</span><span class="content">PROGRESSIVE_ROCK</span><span class="delimiter">'</span></span>
+        resp.json.artistName == <span class="string"><span class="delimiter">'</span><span class="content">King Crimson</span><span class="delimiter">'</span></span>
+        resp.json.title == <span class="string"><span class="delimiter">'</span><span class="content">Red</span><span class="delimiter">'</span></span>
+        resp.json.genre  == <span class="string"><span class="delimiter">'</span><span class="content">PROGRESSIVE_ROCK</span><span class="delimiter">'</span></span>
 
         <span class="key">when</span>:
-        resp = rest.post(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">albums</span><span class="delimiter">'</span></span>,
-                <span class="key">body</span>: [<span class="key">artistName</span>: <span class="string"><span class="delimiter">'</span><span class="content">Riverside</span><span class="delimiter">'</span></span>,
-                       <span class="key">title</span>: <span class="string"><span class="delimiter">'</span><span class="content">Love, Fear and the Time Machine</span><span class="delimiter">'</span></span>,
-                       <span class="key">genre</span>: <span class="string"><span class="delimiter">'</span><span class="content">PROGRESSIVE_ROCK</span><span class="delimiter">'</span></span>],
-                <span class="key">requestContentType</span>: ContentType.JSON)
+        resp = rest.post(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://localhost:</span><span class="inline"><span class="inline-delimiter">${</span>serverPort<span class="inline-delimiter">}</span></span><span class="content">/albums</span><span class="delimiter">&quot;</span></span>) {
+            json {
+                artistName = <span class="string"><span class="delimiter">'</span><span class="content">Riverside</span><span class="delimiter">'</span></span>
+                title = <span class="string"><span class="delimiter">'</span><span class="content">Love, Fear and the Time Machine</span><span class="delimiter">'</span></span>
+                genre = <span class="string"><span class="delimiter">'</span><span class="content">PROGRESSIVE_ROCK</span><span class="delimiter">'</span></span>
+            }
+        }
+        contentType = resp.headers.getContentType()
 
         <span class="key">then</span>:
-        resp.status == HttpStatus.CREATED.value()
-        resp.contentType == <span class="string"><span class="delimiter">'</span><span class="content">application/json</span><span class="delimiter">'</span></span>
+        resp.status == CREATED.value()
+        contentType.subtype == <span class="string"><span class="delimiter">'</span><span class="content">json</span><span class="delimiter">'</span></span>
+        contentType.type == <span class="string"><span class="delimiter">'</span><span class="content">application</span><span class="delimiter">'</span></span>
 
         <span class="key">and</span>:
-        resp.data.artistName == <span class="string"><span class="delimiter">'</span><span class="content">Riverside</span><span class="delimiter">'</span></span>
-        resp.data.title == <span class="string"><span class="delimiter">'</span><span class="content">Love, Fear and the Time Machine</span><span class="delimiter">'</span></span>
-        resp.data.genre.name == <span class="string"><span class="delimiter">'</span><span class="content">PROGRESSIVE_ROCK</span><span class="delimiter">'</span></span>
+        resp.json.artistName == <span class="string"><span class="delimiter">'</span><span class="content">Riverside</span><span class="delimiter">'</span></span>
+        resp.json.title == <span class="string"><span class="delimiter">'</span><span class="content">Love, Fear and the Time Machine</span><span class="delimiter">'</span></span>
+        resp.json.genre  == <span class="string"><span class="delimiter">'</span><span class="content">PROGRESSIVE_ROCK</span><span class="delimiter">'</span></span>
 
         <span class="key">when</span>:
-        resp = rest.post(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">albums</span><span class="delimiter">'</span></span>,
-                <span class="key">body</span>: [<span class="key">artistName</span>: <span class="string"><span class="delimiter">'</span><span class="content">Johnny Winter</span><span class="delimiter">'</span></span>,
-                       <span class="key">title</span>: <span class="string"><span class="delimiter">'</span><span class="content">Progressive Blues Experiment</span><span class="delimiter">'</span></span>,
-                       <span class="key">genre</span>: <span class="string"><span class="delimiter">'</span><span class="content">BLUES</span><span class="delimiter">'</span></span>],
-                <span class="key">requestContentType</span>: ContentType.JSON)
+        resp = rest.post(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://localhost:</span><span class="inline"><span class="inline-delimiter">${</span>serverPort<span class="inline-delimiter">}</span></span><span class="content">/albums</span><span class="delimiter">&quot;</span></span>) {
+            json {
+                artistName = <span class="string"><span class="delimiter">'</span><span class="content">Johnny Winter</span><span class="delimiter">'</span></span>
+                title = <span class="string"><span class="delimiter">'</span><span class="content">Progressive Blues Experiment</span><span class="delimiter">'</span></span>
+                genre = <span class="string"><span class="delimiter">'</span><span class="content">BLUES</span><span class="delimiter">'</span></span>
+            }
+        }
+        contentType = resp.headers.getContentType()
 
         <span class="key">then</span>:
-        resp.status == HttpStatus.CREATED.value()
-        resp.contentType == <span class="string"><span class="delimiter">'</span><span class="content">application/json</span><span class="delimiter">'</span></span>
+        resp.status == CREATED.value()
+        contentType.subtype == <span class="string"><span class="delimiter">'</span><span class="content">json</span><span class="delimiter">'</span></span>
+        contentType.type == <span class="string"><span class="delimiter">'</span><span class="content">application</span><span class="delimiter">'</span></span>
 
         <span class="key">and</span>:
-        resp.data.artistName == <span class="string"><span class="delimiter">'</span><span class="content">Johnny Winter</span><span class="delimiter">'</span></span>
-        resp.data.title == <span class="string"><span class="delimiter">'</span><span class="content">Progressive Blues Experiment</span><span class="delimiter">'</span></span>
-        resp.data.genre.name == <span class="string"><span class="delimiter">'</span><span class="content">BLUES</span><span class="delimiter">'</span></span>
+        resp.json.artistName == <span class="string"><span class="delimiter">'</span><span class="content">Johnny Winter</span><span class="delimiter">'</span></span>
+        resp.json.title == <span class="string"><span class="delimiter">'</span><span class="content">Progressive Blues Experiment</span><span class="delimiter">'</span></span>
+        resp.json.genre  == <span class="string"><span class="delimiter">'</span><span class="content">BLUES</span><span class="delimiter">'</span></span>
+
 
         <span class="key">when</span>:
-        resp = rest.post(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">albums</span><span class="delimiter">'</span></span>,
-                <span class="key">body</span>: [<span class="key">artistName</span>: <span class="string"><span class="delimiter">'</span><span class="content">Motörhead</span><span class="delimiter">'</span></span>,
-                       <span class="key">title</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">No Sleep 'til Hammersmith</span><span class="delimiter">&quot;</span></span>,
-                       <span class="key">genre</span>: <span class="string"><span class="delimiter">'</span><span class="content">HEAVY_METAL</span><span class="delimiter">'</span></span>],
-                <span class="key">requestContentType</span>: ContentType.JSON)
+        resp = rest.post(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://localhost:</span><span class="inline"><span class="inline-delimiter">${</span>serverPort<span class="inline-delimiter">}</span></span><span class="content">/albums</span><span class="delimiter">&quot;</span></span>) {
+            json {
+                artistName = <span class="string"><span class="delimiter">'</span><span class="content">Motorhead</span><span class="delimiter">'</span></span>
+                title = <span class="string"><span class="delimiter">&quot;</span><span class="content">No Sleep 'til Hammersmith</span><span class="delimiter">&quot;</span></span>
+                genre = <span class="string"><span class="delimiter">'</span><span class="content">HEAVY_METAL</span><span class="delimiter">'</span></span>
+            }
+        }
+        contentType = resp.headers.getContentType()
 
         <span class="key">then</span>:
-        resp.status == HttpStatus.CREATED.value()
-        resp.contentType == <span class="string"><span class="delimiter">'</span><span class="content">application/json</span><span class="delimiter">'</span></span>
+        resp.status == CREATED.value()
+        contentType.subtype == <span class="string"><span class="delimiter">'</span><span class="content">json</span><span class="delimiter">'</span></span>
+        contentType.type == <span class="string"><span class="delimiter">'</span><span class="content">application</span><span class="delimiter">'</span></span>
 
         <span class="key">and</span>:
-        resp.data.artistName == <span class="string"><span class="delimiter">'</span><span class="content">Motörhead</span><span class="delimiter">'</span></span>
-        resp.data.title == <span class="string"><span class="delimiter">&quot;</span><span class="content">No Sleep 'til Hammersmith</span><span class="delimiter">&quot;</span></span>
-        resp.data.genre.name == <span class="string"><span class="delimiter">'</span><span class="content">HEAVY_METAL</span><span class="delimiter">'</span></span>
+        resp.json.artistName == <span class="string"><span class="delimiter">'</span><span class="content">Motorhead</span><span class="delimiter">'</span></span>
+        resp.json.title == <span class="string"><span class="delimiter">&quot;</span><span class="content">No Sleep 'til Hammersmith</span><span class="delimiter">&quot;</span></span>
+        resp.json.genre  == <span class="string"><span class="delimiter">'</span><span class="content">HEAVY_METAL</span><span class="delimiter">'</span></span>
     }
-}</code></pre></div></div></section><section id="test-retrieve-albums"><h2>Test Retrieve Albums</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@Integration</span>
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="test-retrieve-albums">
+<h2>Test Retrieve Albums</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@Integration</span>
 <span class="annotation">@Stepwise</span>
 <span class="type">class</span> <span class="class">MusicFunctionalSpec</span> <span class="directive">extends</span> Specification {
 
     <span class="annotation">@Shared</span>
-    <span class="keyword">def</span> rest = <span class="keyword">new</span> RESTClient(<span class="string"><span class="delimiter">'</span><span class="content">http://localhost:8080/</span><span class="delimiter">'</span></span>)
+    <span class="keyword">def</span> rest = <span class="keyword">new</span> RestBuilder()
 
     <span class="type">void</span> <span class="string"><span class="delimiter">'</span><span class="content">test retrieving list of albums defaults to JSON</span><span class="delimiter">'</span></span>() {
         <span class="key">when</span>:
-        <span class="keyword">def</span> resp = rest.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">albums</span><span class="delimiter">'</span></span>)
+        <span class="keyword">def</span> resp = rest.get(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://localhost:</span><span class="inline"><span class="inline-delimiter">${</span>serverPort<span class="inline-delimiter">}</span></span><span class="content">/albums</span><span class="delimiter">&quot;</span></span>)
+        <span class="keyword">def</span> contentType = resp.headers.getContentType()
 
         <span class="key">then</span>:
-        resp.status == HttpStatus.OK.value()
-        resp.contentType == MimeType.JSON.name
-        resp.data.size() == <span class="integer">4</span>
+        resp.status == OK.value()
+        contentType.subtype == <span class="string"><span class="delimiter">'</span><span class="content">json</span><span class="delimiter">'</span></span>
+        contentType.type == <span class="string"><span class="delimiter">'</span><span class="content">application</span><span class="delimiter">'</span></span>
+        resp.json.size() == <span class="integer">4</span>
 
         <span class="key">and</span>:
-        resp.data[<span class="integer">0</span>].artistName == <span class="string"><span class="delimiter">'</span><span class="content">King Crimson</span><span class="delimiter">'</span></span>
-        resp.data[<span class="integer">0</span>].title == <span class="string"><span class="delimiter">'</span><span class="content">Red</span><span class="delimiter">'</span></span>
-        resp.data[<span class="integer">0</span>].genre.name == <span class="string"><span class="delimiter">'</span><span class="content">PROGRESSIVE_ROCK</span><span class="delimiter">'</span></span>
+        resp.json[<span class="integer">0</span>].artistName == <span class="string"><span class="delimiter">'</span><span class="content">King Crimson</span><span class="delimiter">'</span></span>
+        resp.json[<span class="integer">0</span>].title == <span class="string"><span class="delimiter">'</span><span class="content">Red</span><span class="delimiter">'</span></span>
+        resp.json[<span class="integer">0</span>].genre  == <span class="string"><span class="delimiter">'</span><span class="content">PROGRESSIVE_ROCK</span><span class="delimiter">'</span></span>
 
         <span class="key">and</span>:
-        resp.data[<span class="integer">1</span>].artistName == <span class="string"><span class="delimiter">'</span><span class="content">Riverside</span><span class="delimiter">'</span></span>
-        resp.data[<span class="integer">1</span>].title == <span class="string"><span class="delimiter">'</span><span class="content">Love, Fear and the Time Machine</span><span class="delimiter">'</span></span>
-        resp.data[<span class="integer">1</span>].genre.name == <span class="string"><span class="delimiter">'</span><span class="content">PROGRESSIVE_ROCK</span><span class="delimiter">'</span></span>
+        resp.json[<span class="integer">1</span>].artistName == <span class="string"><span class="delimiter">'</span><span class="content">Riverside</span><span class="delimiter">'</span></span>
+        resp.json[<span class="integer">1</span>].title == <span class="string"><span class="delimiter">'</span><span class="content">Love, Fear and the Time Machine</span><span class="delimiter">'</span></span>
+        resp.json[<span class="integer">1</span>].genre  == <span class="string"><span class="delimiter">'</span><span class="content">PROGRESSIVE_ROCK</span><span class="delimiter">'</span></span>
 
         <span class="key">and</span>:
-        resp.data[<span class="integer">3</span>].artistName == <span class="string"><span class="delimiter">'</span><span class="content">Motörhead</span><span class="delimiter">'</span></span>
-        resp.data[<span class="integer">3</span>].title == <span class="string"><span class="delimiter">&quot;</span><span class="content">No Sleep 'til Hammersmith</span><span class="delimiter">&quot;</span></span>
-        resp.data[<span class="integer">3</span>].genre.name == <span class="string"><span class="delimiter">'</span><span class="content">HEAVY_METAL</span><span class="delimiter">'</span></span>
+        resp.json[<span class="integer">3</span>].artistName == <span class="string"><span class="delimiter">'</span><span class="content">Motorhead</span><span class="delimiter">'</span></span>
+        resp.json[<span class="integer">3</span>].title == <span class="string"><span class="delimiter">&quot;</span><span class="content">No Sleep 'til Hammersmith</span><span class="delimiter">&quot;</span></span>
+        resp.json[<span class="integer">3</span>].genre  == <span class="string"><span class="delimiter">'</span><span class="content">HEAVY_METAL</span><span class="delimiter">'</span></span>
 
         <span class="key">and</span>:
-        resp.data[<span class="integer">2</span>].artistName == <span class="string"><span class="delimiter">'</span><span class="content">Johnny Winter</span><span class="delimiter">'</span></span>
-        resp.data[<span class="integer">2</span>].title == <span class="string"><span class="delimiter">'</span><span class="content">Progressive Blues Experiment</span><span class="delimiter">'</span></span>
-        resp.data[<span class="integer">2</span>].genre.name == <span class="string"><span class="delimiter">'</span><span class="content">BLUES</span><span class="delimiter">'</span></span>
+        resp.json[<span class="integer">2</span>].artistName == <span class="string"><span class="delimiter">'</span><span class="content">Johnny Winter</span><span class="delimiter">'</span></span>
+        resp.json[<span class="integer">2</span>].title == <span class="string"><span class="delimiter">'</span><span class="content">Progressive Blues Experiment</span><span class="delimiter">'</span></span>
+        resp.json[<span class="integer">2</span>].genre  == <span class="string"><span class="delimiter">'</span><span class="content">BLUES</span><span class="delimiter">'</span></span>
     }
-}</code></pre></div></div></section><section id="query-filter"><h2>Query Filter</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="type">class</span> <span class="class">MusicController</span> <span class="directive">extends</span> RestfulController&lt;Album&gt; {
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="query-filter">
+<h2>Query Filter</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="type">class</span> <span class="class">MusicController</span> <span class="directive">extends</span> RestfulController&lt;Album&gt; {
 
     <span class="directive">static</span> responseFormats = [<span class="string"><span class="delimiter">'</span><span class="content">json</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">xml</span><span class="delimiter">'</span></span>]
 
@@ -495,126 +887,246 @@ table.CodeRay td.code>pre{padding:0}
             }
         }.list()
     }
-}</code></pre></div></div></section><section id="test-query-filter"><h2>Test Query Filter</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@Integration</span>
+}</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="test-query-filter">
+<h2>Test Query Filter</h2>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay"><code class="groovy language-groovy"><span class="annotation">@Integration</span>
 <span class="annotation">@Stepwise</span>
 <span class="type">class</span> <span class="class">MusicFunctionalSpec</span> <span class="directive">extends</span> Specification {
 
     <span class="annotation">@Shared</span>
-    <span class="keyword">def</span> rest = <span class="keyword">new</span> RESTClient(<span class="string"><span class="delimiter">'</span><span class="content">http://localhost:8080/</span><span class="delimiter">'</span></span>)
+    <span class="keyword">def</span> rest = <span class="keyword">new</span> RestBuilder()
 
     <span class="type">void</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">test retrieving albums by genre</span><span class="delimiter">&quot;</span></span>() {
         <span class="key">when</span>:
-        <span class="keyword">def</span> resp = rest.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">albums</span><span class="delimiter">'</span></span>,
-                <span class="key">query</span>: [<span class="key">genre</span>: <span class="string"><span class="delimiter">'</span><span class="content">PROGRESSIVE_ROCK</span><span class="delimiter">'</span></span>]) <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="keyword">def</span> resp = rest.get(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://localhost:</span><span class="inline"><span class="inline-delimiter">${</span>serverPort<span class="inline-delimiter">}</span></span><span class="content">/genre/PROGRESSIVE_ROCK/albums</span><span class="delimiter">&quot;</span></span>)  <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="keyword">def</span> contentType = resp.headers.getContentType()
 
         <span class="key">then</span>:
-        resp.status == HttpStatus.OK.value()
-        resp.contentType == MimeType.JSON.name
-        resp.data.size() == <span class="integer">2</span>
+        resp.status == OK.value()
+        contentType.subtype == <span class="string"><span class="delimiter">'</span><span class="content">json</span><span class="delimiter">'</span></span>
+        contentType.type == <span class="string"><span class="delimiter">'</span><span class="content">application</span><span class="delimiter">'</span></span>
+        resp.json.size() == <span class="integer">2</span>
 
         <span class="key">when</span>:
-        resp = rest.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">albums</span><span class="delimiter">'</span></span>,
-                <span class="key">query</span>: [<span class="key">genre</span>: <span class="string"><span class="delimiter">'</span><span class="content">HEAVY_METAL</span><span class="delimiter">'</span></span>])      <i class="conum" data-value="2"></i><b>(2)</b>
+        resp = rest.get(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://localhost:</span><span class="inline"><span class="inline-delimiter">${</span>serverPort<span class="inline-delimiter">}</span></span><span class="content">/genre/HEAVY_METAL/albums</span><span class="delimiter">&quot;</span></span>)           <i class="conum" data-value="2"></i><b>(2)</b>
+        contentType = resp.headers.getContentType()
 
         <span class="key">then</span>:
-        resp.status == HttpStatus.OK.value()
-        resp.contentType == MimeType.JSON.name
-        resp.data.size() == <span class="integer">1</span>
+        resp.status == OK.value()
+        contentType.subtype == <span class="string"><span class="delimiter">'</span><span class="content">json</span><span class="delimiter">'</span></span>
+        contentType.type == <span class="string"><span class="delimiter">'</span><span class="content">application</span><span class="delimiter">'</span></span>
+        resp.json.size() == <span class="integer">1</span>
 
         <span class="key">when</span>:
-        resp = rest.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">albums</span><span class="delimiter">'</span></span>,
-                <span class="key">query</span>: [<span class="key">genre</span>: <span class="string"><span class="delimiter">'</span><span class="content">BLUES</span><span class="delimiter">'</span></span>])            <i class="conum" data-value="3"></i><b>(3)</b>
+        resp = rest.get(<span class="string"><span class="delimiter">&quot;</span><span class="content">http://localhost:</span><span class="inline"><span class="inline-delimiter">${</span>serverPort<span class="inline-delimiter">}</span></span><span class="content">/genre/BLUES/albums</span><span class="delimiter">&quot;</span></span>)                 <i class="conum" data-value="3"></i><b>(3)</b>
+        contentType = resp.headers.getContentType()
 
         <span class="key">then</span>:
-        resp.status == HttpStatus.OK.value()
-        resp.contentType == MimeType.JSON.name
-        resp.data.size() == <span class="integer">1</span>
+        resp.status == OK.value()
+        contentType.subtype == <span class="string"><span class="delimiter">'</span><span class="content">json</span><span class="delimiter">'</span></span>
+        contentType.type == <span class="string"><span class="delimiter">'</span><span class="content">application</span><span class="delimiter">'</span></span>
+        resp.json.size() == <span class="integer">1</span>
     }
-}</code></pre></div></div>
-<div class="colist arabic"><table><tr><td><i class="conum" data-value="1"></i><b>1</b></td><td>/albums?genre=PROGRESSIVE_ROCK</td></tr><tr><td><i class="conum" data-value="2"></i><b>2</b></td><td>/albums?genre=HEAVY_METAL</td></tr><tr><td><i class="conum" data-value="3"></i><b>3</b></td><td>/albums?genre=BLUES</td></tr></table></div></section></section>
-<section><section id="running-tests"><h2>Running Tests</h2></section><section id="running-unit-tests"><h2>Running Unit Tests</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code>grails test-app unit:</code></pre></div></div>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>/albums?genre=PROGRESSIVE_ROCK</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>/albums?genre=HEAVY_METAL</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>/albums?genre=BLUES</td>
+</tr>
+</table>
+</div>
+</section>
+<section class="slide" id="running-tests">
+<h2>Running Tests</h2>
+
+</section>
+<section class="slide" id="running-unit-tests">
+<h2>Running Unit Tests</h2>
+<div class="listingblock">
+<div class="content">
+<pre><code>grails test-app unit:</code></pre>
+</div>
+</div>
 <div class="paragraph"><p>Or&#8230;&#8203;</p></div>
-<div class="listingblock"><div class="content"><pre class="CodeRay"><code>./gradlew test</code></pre></div></div></section><section id="running-integration-tests"><h2>Running Integration Tests</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code>./gradlew integrationTest</code></pre></div></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>./gradlew test</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="running-integration-tests">
+<h2>Running Integration Tests</h2>
+<div class="listingblock">
+<div class="content">
+<pre><code>./gradlew integrationTest</code></pre>
+</div>
+</div>
 <div class="paragraph"><p>Or&#8230;&#8203;</p></div>
-<div class="listingblock"><div class="content"><pre class="CodeRay"><code>./gradlew iT</code></pre></div></div></section><section id="running-all-tests"><h2>Running All Tests</h2><div class="listingblock"><div class="content"><pre class="CodeRay"><code>./gradlew check</code></pre></div></div></section></section>
-<section id="thank-you"><h2>Thank you!</h2><div class="ulist"><ul><li><p>Slides and code : <a href="https://github.com/jeffbrown/testingdemo" class="bare">https://github.com/jeffbrown/testingdemo</a></p></li><li><p>Jeff Scott Brown</p></li><li><p><a href="mailto:brownj@ociweb.com">brownj@ociweb.com</a></p></li><li><p>@jeffscottbrown</p></li></ul></div></section></div></div><script src="reveal.js/lib/js/head.min.js"></script><script src="reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
-Reveal.initialize({
-  // Display controls in the bottom right corner
-  controls: true,
-  // Display a presentation progress bar
-  progress: true,
-  // Display the page number of the current slide
-  slideNumber: true,
-  // Push each slide change to the browser history
-  history: true,
-  // Enable keyboard shortcuts for navigation
-  keyboard: true,
-  // Enable the slide overview mode
-  overview: true,
-  // Vertical centering of slides
-  center: true,
-  // Enables touch navigation on devices with touch input
-  touch: true,
-  // Loop the presentation
-  loop: false,
-  // Change the presentation direction to be RTL
-  rtl: false,
-  // Turns fragments on and off globally
-  fragments: true,
-  // Flags if the presentation is running in an embedded mode,
-  // i.e. contained within a limited portion of the screen
-  embedded: false,
-  // Number of milliseconds between automatically proceeding to the
-  // next slide, disabled when set to 0, this value can be overwritten
-  // by using a data-autoslide attribute on your slides
-  autoSlide: 0,
-  // Stop auto-sliding after user input
-  autoSlideStoppable: true,
-  // Enable slide navigation via mouse wheel
-  mouseWheel: false,
-  // Hides the address bar on mobile devices
-  hideAddressBar: true,
-  // Opens links in an iframe preview overlay
-  previewLinks: false,
-  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
-  // NOTE setting the theme in the config no longer works in reveal.js 3.x
-  //theme: Reveal.getQueryHash().theme || 'testing',
-  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
-  transition: Reveal.getQueryHash().transition || 'linear',
-  // Transition speed (e.g., default, fast, slow)
-  transitionSpeed: 'default',
-  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
-  backgroundTransition: 'fade',
-  // Number of slides away from the current that are visible
-  viewDistance: 3,
-  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
-  parallaxBackgroundImage: '',
-  // Parallax background size in CSS syntax (e.g., "2100px 900px")
-  parallaxBackgroundSize: '',
-
-  // The "normal" size of the presentation, aspect ratio will be preserved
-  // when the presentation is scaled to fit different resolutions. Can be
-  // specified using percentage units.
-  width: 960,
-  height: 700,
-
-  // Factor of the display size that should remain empty around the content
-  margin: 0.1,
-
-  // Bounds for smallest/largest possible scale to apply to content
-  minScale: 0.2,
-  maxScale: 1.5,
-
-  // Optional libraries used to extend on reveal.js
-  dependencies: [
-      { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-      { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-      { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-      
-      { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-      { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-  ]
-});</script><div id="footer">
-  <img width="40" src="images/logo-circle.png" style="float: left; margin: 0px 15px 15px 0px;"/>
-  <p>© 2016 Object Computing Inc.</p>
-</div></body></html>
+<div class="listingblock">
+<div class="content">
+<pre><code>./gradlew iT</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="running-all-tests">
+<h2>Running All Tests</h2>
+<div class="listingblock">
+<div class="content">
+<pre><code>./gradlew check</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="thank-you">
+<h2>Thank you!</h2>
+<div class="ulist">
+<ul>
+<li>Slides and code : <a class="bare" href="https://github.com/jeffbrown/testingdemo">https://github.com/jeffbrown/testingdemo</a></li>
+<li>Jeff Scott Brown</li>
+<li><a href="mailto:brownj@objectcomputing.com">brownj@objectcomputing.com</a></li>
+<li>@jeffscottbrown</li>
+</ul>
+</div>
+</section>
+<div aria-role="navigation">
+<a class="deck-prev-link" href="#" title="Previous">&#8592;</a>
+<a class="deck-next-link" href="#" title="Next">&#8594;</a>
+</div>
+<p aria-role="status" class="deck-status">
+<span class="deck-status-current"></span>
+/
+<span class="deck-status-total"></span>
+</p>
+<form action="." class="goto-form" method="get">
+<label for="goto-slide">Go to Slide:</label>
+<input id="goto-slide" list="goto-datalist" name="slidenum" type="text">
+<datalist id="goto-data-list"></datalist>
+<input type="submit" value="Go">
+</form>
+</div>
+<script src="deck.js/jquery.min.js"></script>
+<script src="deck.js/core/deck.core.js"></script>
+<script src="deck.js/extensions/scale/deck.scale.js"></script>
+<script src="deck.js/extensions/goto/deck.goto.js"></script>
+<script src="deck.js/extensions/menu/deck.menu.js"></script>
+<script src="deck.js/extensions/navigation/deck.navigation.js"></script>
+<script src="deck.js/extensions/status/deck.status.js"></script>
+<script src="deck.js/extensions/toc/deck.toc.js"></script>
+<div class="deck-toc"></div>
+<script>
+  (function($, deck, undefined) {
+    $.deck.defaults.keys['previous'] = [8, 33, 37, 39];
+    $.deck.defaults.keys['next'] = [13, 32, 34, 39];
+  
+    $.extend(true, $[deck].defaults, {
+        countNested: false
+    });
+  
+    $.deck('.slide');
+  })(jQuery, 'deck');
+</script>
+<style>
+  .slide.canvas-image {
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-box;
+  display: box;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+  -ms-box-orient: vertical;
+  box-orient: vertical;
+  -moz-box-align: start;
+  -webkit-box-align: start;
+  -ms-box-align: start;
+  box-align: start;
+  -moz-box-pack: start;
+  -webkit-box-pack: start;
+  -ms-box-pack: start;
+  box-pack: start;}
+  
+  .bottom-left {
+    left: 1%;
+    bottom: 20%; }
+  
+  .top-left {
+    left: 1%;
+    top: 20%; }
+  
+  .bottom-right {
+    right: 1%;
+    bottom: 20%; }
+  
+  .top-right {
+    right: 1%;
+    top: 20%; }
+  
+  .center-up {
+    right: 50%;
+    top: 1%;
+  }
+  
+  .center-down {
+    right: 50%;
+    bottom: 1%;
+  }
+  .canvas-image .canvas-caption p {
+    text-align: center;
+    padding-top: 0;
+    padding: 0;
+    -moz-transform: none;
+    -webkit-transform: none;
+    -o-transform: none;
+    -ms-transform: none;
+    transform: none;
+    display: inline;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    font-weight: bold;
+    font-size: 58px;
+    -webkit-box-shadow: 2px 2px 2px #000;
+    -moz-box-shadow: 2px 2px 2px #000;
+    box-shadow: 2px 2px 2px #000;
+    padding: 1rem;
+    color: white; }
+  kbd.keyseq { color: #555555; }
+  kbd:not(.keyseq) {
+    display: inline-block;
+    color: #222222;
+    font-size: 0.7em;
+    line-height: 1.4;
+    background-color: #F7F7F7;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset;
+    margin: -0.15em 0.15em 0 0.15em;
+    padding: 0.2em 0.6em;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  kbd kbd:first-child { margin-left: 0; }
+  kbd kbd:last-child { margin-right: 0; }
+</style>
+</body>
+</html>
