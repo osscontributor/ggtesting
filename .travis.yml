@@ -1,8 +1,5 @@
 language: groovy
 sudo: false
-#cache:
-#  directories:
-#  - "$HOME/.gradle"
 jdk:
 - oraclejdk8
 script: "./travis-build.sh"
@@ -11,3 +8,4 @@ env:
   global:
   - GIT_NAME="Jeff Scott Brown"
   - GIT_EMAIL="brownj@objectcomputing.com"
+  - secure: u++4FsiROecURcgO350kQHKSRLi6ZupBPB+kw5HqOceQdnbdda4mfyxIRFT+44NtrEt9xhJPSCk7avcN/hGnbzdVAOQDf7hPvyMBk4nOJoG59/UY9skyZ6E0eHZY+GzpG827dbp+U2Slv75VhzyradDSErOtQ/vUMiwHSe7i6Yb6hPIMhRVFfJnz7oFF+bJrSUP9kUmKeQ9CuIqO0OAqZVsoQSqFD5qwG+WKuQBwQMlAwekoJawgPuQCLv5aFws/Z10CPYBaNt2D0kByPa2LknFsEMDlWujcmOkmW5HE9WIYNuZ6uia7mU6gaHG0gF3+AnqugOavuf8y26oFg1ygUVLWuGIVQKC8q/SjeSl+GBbQ3+vqplA+i356AkCxmEw5u/mVjkmftOQCL2K8SyaMJ4N0LtGhFp0z2nvlSdPFMXVP1TSyyTUsBTyQHDMp7GkOvcgrkJiiAULsEcDoVWxdPLeY5DUtG2G5g6vfovvAPwRrJhJf2fgeDBrmRSJUi7BTF3Pa35mW0x/DIbW5+4hLf+FgEAJGNSsM5mgL9w80tasZvGbtyNBt5yWnCDA8Wm5HpASkfEpBNEKLI0KZn5y12qtFPTsS9uBVe9cNQcA8kxsUBKQnJH6VjI4xjrcQQeqFsRbmoX3Yuc1lF9qt2Uxr63DV7SZ+9yYQGg6mSTI63kA=
