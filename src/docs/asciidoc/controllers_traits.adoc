@@ -1,0 +1,27 @@
+== Testing Controllers With Traits
+
+== Controller
+
+[source,groovy]
+----
+include::{projectdir}/3.3.x/grails-app/controllers/demo/DemoController.groovy[]
+----
+
+== Command Object Unit Test
+
+[source,groovy]
+----
+include::{projectdir}/3.3.x/src/test/groovy/demo/DemoControllerSpec.groovy[tags=class_begin;command_object_spec;class_end]
+----
+
+== String Conversion Unit Test
+
+[source,yml]
+----
+include::{projectdir}/3.3.x/grails-app/conf/application.yml[tags=string_conversion]
+----
+
+[source,groovy]
+----
+include::{projectdir}/3.3.x/src/test/groovy/demo/DemoControllerSpec.groovy[tags=class_begin;string_conversion_spec;class_end]
+----

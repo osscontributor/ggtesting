@@ -1,10 +1,10 @@
-= Grails 3 Testing Overview
-Jeff Scott Brown <brownj@objectcomputing.com> - @jeffscottbrown
-:deckjs_transition: fade
+= Groovy And Grails Testing Techniques
+:deckjs_transition: horizontal-slide
 :navigation:
 :menu:
 :goto:
 :status:
+
 
 include::oci.adoc[]
 
@@ -13,6 +13,8 @@ include::oci.adoc[]
 * Domain Classes
 * Command Objects
 * Tag Libraries
+* Grails 3.3 Trait Based Testing Library
+* GEB
 * REST APIs
 * Running Tests
 
@@ -24,6 +26,14 @@ include::services.adoc[]
 
 include::tag_libraries.adoc[]
 
+include::domain_classes_traits.adoc[]
+
+include::controllers_traits.adoc[]
+
+include::services_traits.adoc[]
+
+include::tag_libraries_traits.adoc[]
+
 include::geb.adoc[]
 
 include::rest.adoc[]
@@ -32,7 +42,7 @@ include::running_tests.adoc[]
 
 == Thank you!
 
-* Slides and code : https://github.com/jeffbrown/testingdemo
+* Slides and code : https://github.com/jeffbrown/ggtesting
 * Jeff Scott Brown
 * brownj@objectcomputing.com
 * @jeffscottbrown

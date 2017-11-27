@@ -55,6 +55,9 @@ class MusicFunctionalSpec extends Specification {
         resp.json.title == 'Red'
         resp.json.genre == 'PROGRESSIVE_ROCK'
 
+        // ...
+        // end::create_albums[]
+
         when:
         resp = rest.post("http://localhost:${serverPort}/albums") {
             json {
@@ -115,6 +118,7 @@ class MusicFunctionalSpec extends Specification {
         resp.json.artistName == 'Motorhead'
         resp.json.title == "No Sleep 'til Hammersmith"
         resp.json.genre == 'HEAVY_METAL'
+    // tag::create_albums[]
     }
     // end::create_albums[]
 
@@ -139,6 +143,8 @@ class MusicFunctionalSpec extends Specification {
         resp.json[1].artistName == 'Riverside'
         resp.json[1].title == 'Love, Fear and the Time Machine'
         resp.json[1].genre == 'PROGRESSIVE_ROCK'
+        // ...
+        // end::get_albums[]
 
         and:
         resp.json[3].artistName == 'Motorhead'
@@ -149,13 +155,14 @@ class MusicFunctionalSpec extends Specification {
         resp.json[2].artistName == 'Johnny Winter'
         resp.json[2].title == 'Progressive Blues Experiment'
         resp.json[2].genre == 'BLUES'
+    // tag::get_albums[]
     }
     // end::get_albums[]
 
     // tag::by_genre[]
     void "test retrieving albums by genre"() {
         when:
-        def resp = rest.get("http://localhost:${serverPort}/genre/PROGRESSIVE_ROCK/albums")  // <1>
+        def resp = rest.get("http://localhost:${serverPort}/genre/PROGRESSIVE_ROCK/albums")
         def contentType = resp.headers.getContentType()
 
         then:
@@ -165,7 +172,7 @@ class MusicFunctionalSpec extends Specification {
         resp.json.size() == 2
 
         when:
-        resp = rest.get("http://localhost:${serverPort}/genre/HEAVY_METAL/albums")           // <2>
+        resp = rest.get("http://localhost:${serverPort}/genre/HEAVY_METAL/albums")
         contentType = resp.headers.getContentType()
 
         then:
@@ -173,9 +180,11 @@ class MusicFunctionalSpec extends Specification {
         contentType.subtype == 'json'
         contentType.type == 'application'
         resp.json.size() == 1
+        // ...
+        // end::by_genre[]
 
         when:
-        resp = rest.get("http://localhost:${serverPort}/genre/BLUES/albums")                 // <3>
+        resp = rest.get("http://localhost:${serverPort}/genre/BLUES/albums")
         contentType = resp.headers.getContentType()
 
         then:
@@ -183,6 +192,7 @@ class MusicFunctionalSpec extends Specification {
         contentType.subtype == 'json'
         contentType.type == 'application'
         resp.json.size() == 1
+        // tag::by_genre[]
     }
     // end::by_genre[]
 

@@ -1,4 +1,4 @@
-== Testing Domain Classes
+== Testing Domain Classes With Traits
 
 == Domain Class
 
@@ -11,5 +11,5 @@ include::{projectdir}/3.3.x/grails-app/domain/demo/Person.groovy[]
 
 [source,groovy]
 ----
-include::{projectdir}/3.2.x/src/test/groovy/demo/PersonSpec.groovy[tags=person_spec]
+include::{projectdir}/3.3.x/src/test/groovy/demo/PersonSpec.groovy[tags=person_spec]
 ----

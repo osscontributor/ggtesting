@@ -1,0 +1,20 @@
+== Testing Services With Traits
+
+== Services
+
+[source,groovy]
+----
+include::{projectdir}/3.3.x/grails-app/services/demo/MoneyService.groovy[]
+----
+
+[source,groovy]
+----
+include::{projectdir}/3.3.x/grails-app/services/demo/BankService.groovy[]
+----
+
+== Configuring Beans In Test
+
+[source,groovy]
+----
+include::{projectdir}/3.3.x/src/test/groovy/demo/MoneyServiceSpec.groovy[]
+----

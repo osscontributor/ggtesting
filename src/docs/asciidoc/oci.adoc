@@ -11,9 +11,9 @@
 
 * May 2015
 ** Jeff Brown and Graeme Rocher
-* May 2017
-** 17 Full Time
-** 11 U.S. - 5 Europe - 1 Australia
+* November 2017
+** 18 Full Time
+** 13 U.S. - 4 Europe - 1 Australia
 * We Need More
 ** grailsjobs@objectcomputing.com
 
@@ -21,5 +21,7 @@
 == Grails At OCI
 
 * 30+ Releases Per Year
-** 2.5.x, 3.0.x, 3.1.x, 3.2.x
-** Working On 3.3
+** 2.5.x, 3.0.x, 3.1.x, 3.2.x, 3.3.x
+** Shorter Release Cycles
+*** Easier To Upgrade
+*** Less Time To Wait For Enhancements

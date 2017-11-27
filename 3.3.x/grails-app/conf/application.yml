@@ -1,7 +1,9 @@
 ---
+# tag::string_conversion[]
 grails:
     databinding:
         convertEmptyStringsToNull: false
+# end::string_conversion[]
 ---
 grails:
     profile: web
