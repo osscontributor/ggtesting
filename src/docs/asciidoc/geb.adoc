@@ -14,9 +14,22 @@ include::{projectdir}/3.2.x/src/integration-test/groovy/demo/PersonCrudFunctiona
 include::{projectdir}/3.2.x/src/integration-test/groovy/demo/PersonCrudFunctionalSpec.groovy[tags=test_create]
 ----
 
+== The CreatePersonPage
+[source,groovy]
+----
+include::{projectdir}/3.2.x/src/integration-test/groovy/demo/pages/CreatePersonPage.groovy[]
+----
+
 == Inspecting A Page
 
 [source,groovy]
 ----
 include::{projectdir}/3.2.x/src/integration-test/groovy/demo/PersonCrudFunctionalSpec.groovy[tags=test_retrieve]
 ----
+
+== The PersonListPage
+[source,groovy]
+----
+include::{projectdir}/3.2.x/src/integration-test/groovy/demo/pages/PersonListPage.groovy[]
+----
+
