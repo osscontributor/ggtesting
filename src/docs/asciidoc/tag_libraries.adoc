@@ -1,36 +1,36 @@
 == Testing Tag Libraries
 
-=== Tag Library
+== Tag Library
 
 [source,groovy]
 ----
-include::{projectdir}/grails-app/taglib/demo/HelperTagLib.groovy[]
+include::{projectdir}/3.2.x/grails-app/taglib/demo/HelperTagLib.groovy[]
 ----
 
-=== Testing Simple Tag
-
-[source,groovy]
-----
-include::{projectdir}/src/test/groovy/demo/HelperTagLibSpec.groovy[tags=class_begin;test_simple_tag;class_end]
-----
-
-=== Testing Tag With Body
+== Testing Simple Tag
 
 [source,groovy]
 ----
-include::{projectdir}/src/test/groovy/demo/HelperTagLibSpec.groovy[tags=class_begin;test_repeat;class_end]
+include::{projectdir}/3.2.x/src/test/groovy/demo/HelperTagLibSpec.groovy[tags=class_begin;test_simple_tag;class_end]
 ----
 
-=== Testing Tag With Body
-
-[source,groovy]
-----
-include::{projectdir}/src/test/groovy/demo/HelperTagLibSpec.groovy[tags=class_begin;test_repeat_no_count;class_end]
-----
-
-=== Testing Tag Method Call
+== Testing Tag With Body
 
 [source,groovy]
 ----
-include::{projectdir}/src/test/groovy/demo/HelperTagLibSpec.groovy[tags=class_begin;test_method_call;class_end]
+include::{projectdir}/3.2.x/src/test/groovy/demo/HelperTagLibSpec.groovy[tags=class_begin;test_repeat;class_end]
+----
+
+== Testing Tag With Body
+
+[source,groovy]
+----
+include::{projectdir}/3.2.x/src/test/groovy/demo/HelperTagLibSpec.groovy[tags=class_begin;test_repeat_no_count;class_end]
+----
+
+== Testing Tag Method Call
+
+[source,groovy]
+----
+include::{projectdir}/3.2.x/src/test/groovy/demo/HelperTagLibSpec.groovy[tags=class_begin;test_method_call;class_end]
 ----

@@ -1,15 +1,15 @@
 == Testing Domain Classes
 
-=== Domain Class
+== Domain Class
 
 [source,groovy]
 ----
-include::{projectdir}/grails-app/domain/demo/Person.groovy[]
+include::{projectdir}/3.2.x/grails-app/domain/demo/Person.groovy[]
 ----
 
-=== Domain Class Validation Unit Test
+== Domain Class Validation Unit Test
 
 [source,groovy]
 ----
-include::{projectdir}/src/test/groovy/demo/PersonSpec.groovy[tags=person_spec]
+include::{projectdir}/3.2.x/src/test/groovy/demo/PersonSpec.groovy[tags=person_spec]
 ----

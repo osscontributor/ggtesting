@@ -1,144 +1,89 @@
 buildscript {
-    ext {
-        grailsVersion = project.grailsVersion
-    }
-    repositories {
-        mavenLocal()
-        maven { url "https://repo.grails.org/grails/core" }
-    }
     dependencies {
-        classpath "org.grails:grails-gradle-plugin:$grailsVersion"
-        classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.5.0'
-        classpath "org.grails.plugins:hibernate:4.3.10.5"
-
-        classpath 'org.ysb33r.gradle:vfs-gradle-plugin:1.0-beta8'
+        classpath 'org.ysb33r.gradle:vfs-gradle-plugin:1.0'
         classpath 'commons-httpclient:commons-httpclient:3.1'
     }
-
 }
 
 plugins {
-    id "io.spring.dependency-management" version "0.5.2.RELEASE"
     id 'org.asciidoctor.convert' version '1.5.3'
-    id 'com.github.jruby-gradle.base' version '1.2.1'
+    id 'com.github.jruby-gradle.base' version '1.4.0'
 }
-
-version "0.1"
-group "testingdemo"
-
-apply plugin: "spring-boot"
-apply plugin: "war"
-apply plugin: "asset-pipeline"
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: "org.grails.grails-web"
-apply plugin: "org.grails.grails-gsp"
 
 apply plugin: 'com.github.jruby-gradle.base'
 apply plugin: 'org.ysb33r.vfs'
 apply plugin: 'org.asciidoctor.convert'
 
 ext {
-    grailsVersion = project.grailsVersion
-    gradleWrapperVersion = project.gradleWrapperVersion
-    revealjsVersion = '3.2.0'
+    deckjsVersion = 'master'
     asciidoctorBackendVersion = 'master'
     downloadDir = new File(buildDir,'download')
     templateDir = new File(downloadDir,'templates')
-    revealjsDir   = new File(downloadDir,'reveal.js')
-}
-
-assets {
-    minifyJs = true
-    minifyCss = true
+    deckjsDir   = new File(downloadDir,'deck.js')
 }
 
 repositories {
-    mavenLocal()
-    maven { url "https://repo.grails.org/grails/core" }
     jcenter()
 }
 
-dependencyManagement {
-    imports {
-        mavenBom "org.grails:grails-bom:$grailsVersion"
-    }
-    applyMavenExclusions false
-}
-
-// tag::begin_dependencies[]
 dependencies {
-// end::begin_dependencies[]
-    compile "org.springframework.boot:spring-boot-starter-logging"
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile "org.springframework.boot:spring-boot-autoconfigure"
-    compile "org.springframework.boot:spring-boot-starter-tomcat"
-    compile "org.grails:grails-dependencies"
-    compile "org.grails:grails-web-boot"
-
-    compile "org.grails.plugins:hibernate"
-    compile "org.grails.plugins:cache"
-    compile "org.hibernate:hibernate-ehcache"
-    compile "org.grails.plugins:scaffolding"
-
-    runtime "org.grails.plugins:asset-pipeline"
-
-    testCompile "org.grails:grails-plugin-testing"
-    testCompile "org.grails.plugins:geb"
-
-    // Note: It is recommended to update to a more robust driver (Chrome, Firefox etc.)
-    testRuntime 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.44.0'
-
-    console "org.grails:grails-console"
-    // tag::http_builder[]
-
-    testCompile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
-    // end::http_builder[]
-
-    gems 'rubygems:slim:3.0.6'
-    gems 'rubygems:thread_safe:0.3.5'
-// tag::end_dependencies[]
-}
-// end::end_dependencies[]
-
-task wrapper(type: Wrapper) {
-    gradleVersion = gradleWrapperVersion
+    gems 'rubygems:haml:4.0.7'
 }
 
-
-ext {
-    revealjsVersion = '2.6.2'
-    asciidoctorBackendVersion = 'master'
-    downloadDir = new File(buildDir, 'download')
-    templateDir = new File(downloadDir, 'templates')
-    revealJsDir = new File(downloadDir, 'reveal.js')
-}
-
-task download << {
-    mkdir downloadDir
-    vfs {
-        cp "zip:https://github.com/asciidoctor/asciidoctor-reveal.js/archive/${asciidoctorBackendVersion}.zip!asciidoctor-reveal.js-${asciidoctorBackendVersion}",
-                templateDir, recursive:true, overwrite:true
-        cp "zip:https://github.com/hakimel/reveal.js/archive/${revealjsVersion}.zip!reveal.js-${revealjsVersion}",
-                revealjsDir, recursive:true, overwrite:true
+task download {
+    doLast {
+        mkdir downloadDir
+        vfs {
+            cp "zip:https://github.com/asciidoctor/asciidoctor-deck.js/archive/${asciidoctorBackendVersion}.zip!asciidoctor-deck.js-${asciidoctorBackendVersion}/templates",
+            templateDir, recursive:true, overwrite:true
+            cp "zip:https://github.com/imakewebthings/deck.js/archive/${deckjsVersion}.zip!deck.js-${deckjsVersion}",
+            deckjsDir, recursive:true, overwrite:true
+        }
     }
 }
 
 download {
-    description "Download extra revealjs resources"
+    description "Download extra deckjs resources"
     outputs.dir templateDir
-    outputs.dir revealjsDir
+    outputs.dir deckjsDir
 }
 
 asciidoctorj {
-    version = '1.5.4'
-}
-task copyTheme(type:Copy) {
-    dependsOn download
-    from fileTree("$revealJsDir/reveal.js-${revealjsVersion}")
-    into revealJsDir
-    from fileTree('src/docs/theme')
-    into file("$revealJsDir/css/theme")
+    version = '1.5.5'
 }
 
-apply from: 'gradle/asciidoctor.gradle'
+asciidoctor {
+    dependsOn jrubyPrepare
+
+    sources {
+        include 'index.adoc'
+    }
+
+    resources {
+        from (sourceDir) {
+            include 'images/**'
+        }
+        from (downloadDir) {
+            include 'deck.js/**'
+        }
+    }
+
+    backends 'html5'
+
+    attributes \
+        'build-gradle': file('build.gradle'),
+        'sourcedir': file('src/docs/asciidoc'),
+        'endpoint-url': 'http://example.org',
+        'source-highlighter': 'coderay',
+        'imagesdir': './images',
+        'toc': 'left',
+        'icons': 'font',
+        'setanchors': '',
+        'idprefix': '',
+        'idseparator': '-',
+        'docinfo1': ''
+
+    options template_dirs : [new File(templateDir,'haml').absolutePath ]
+
+    dependsOn download
+}

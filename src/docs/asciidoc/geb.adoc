@@ -1,24 +1,22 @@
 == Testing With Geb
 
-=== GebSpec
+== GebSpec
 
 [source,groovy]
 ----
-include::{projectdir}/src/integration-test/groovy/demo/PersonCrudFunctionalSpec.groovy[tags=class_declaration]
+include::{projectdir}/3.2.x/src/integration-test/groovy/demo/PersonCrudFunctionalSpec.groovy[tags=class_declaration]
 ----
 
-=== Filling Out A Form
+== Filling Out A Form
 
 [source,groovy]
 ----
-include::{projectdir}/src/integration-test/groovy/demo/PersonCrudFunctionalSpec.groovy[tags=test_create]
+include::{projectdir}/3.2.x/src/integration-test/groovy/demo/PersonCrudFunctionalSpec.groovy[tags=test_create]
 ----
 
-=== Inspecting A Page
+== Inspecting A Page
 
 [source,groovy]
 ----
-include::{projectdir}/src/integration-test/groovy/demo/PersonCrudFunctionalSpec.groovy[tags=test_retrieve]
+include::{projectdir}/3.2.x/src/integration-test/groovy/demo/PersonCrudFunctionalSpec.groovy[tags=test_retrieve]
 ----
-
-
