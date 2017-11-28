@@ -1,0 +1,18 @@
+== Automated Testing
+
+* Unit Tests
+* Integration Tests
+* CI Server
+** Broken Windows
+
+=== Are Automated Tests Important?
+
+* Of Course!
+
+== Testing And Groovy
+
+[options="step"]
+* Dynamic Typing vs. Static Typing
+* Dynamic Dispatch
+* Whole Classes Of Errors Now Have To Be Dealt With
+* What Kind Of Test Is A Compiler?

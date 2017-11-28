@@ -4,6 +4,7 @@
 :menu:
 :goto:
 :status:
+:deckjs_theme: web-2.0
 
 include::welcome.adoc[]
 
@@ -11,13 +12,20 @@ include::oci.adoc[]
 
 == Agenda
 
-* Domain Classes
-* Command Objects
-* Tag Libraries
-* Grails 3.3 Trait Based Testing Library
-* GEB
-* REST APIs
-* Running Tests
+* The Basics
+* Grails Testing
+** Domain Classes
+** Command Objects
+** Tag Libraries
+** Grails 3.3 Trait Based Testing Library
+** GEB
+** REST APIs
+
+== The Basics
+
+include::the_basics.adoc[]
+
+== Grails Testing
 
 include::domain_classes.adoc[]
 
@@ -38,8 +46,6 @@ include::tag_libraries_traits.adoc[]
 include::geb.adoc[]
 
 include::rest.adoc[]
-
-include::running_tests.adoc[]
 
 == Thank you!
 

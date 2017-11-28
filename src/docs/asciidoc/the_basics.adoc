@@ -1,0 +1,4 @@
+
+include::testing_and_groovy.adoc[]
+
+include::running_tests.adoc[]
