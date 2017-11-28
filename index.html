@@ -162,7 +162,7 @@ Regster To Win!!<div class="ulist">
 <li>Grails Co-Founder</li>
 <li>OCI (Home Of Grails) Grails Practice Lead</li>
 <li>@jeffscottbrown</li>
-<li><a href="mailto:brownj@objectomputing.com">brownj@objectomputing.com</a></li>
+<li><a href="mailto:brownj@objectcomputing.com">brownj@objectcomputing.com</a></li>
 <li>Slides : <a class="bare" href="https://jeffbrown.github.io/ggtesting">https://jeffbrown.github.io/ggtesting</a></li>
 <li>Code : <a class="bare" href="https://github.com/jeffbrown/ggtesting">https://github.com/jeffbrown/ggtesting</a></li>
 </ul>
@@ -230,15 +230,102 @@ Shorter Release Cycles<div class="ulist">
 <h2>Agenda</h2>
 <div class="ulist">
 <ul>
+<li>The Basics</li>
+<li><p>
+Grails Testing<div class="ulist">
+<ul>
 <li>Domain Classes</li>
 <li>Command Objects</li>
 <li>Tag Libraries</li>
 <li>Grails 3.3 Trait Based Testing Library</li>
 <li>GEB</li>
 <li>REST APIs</li>
-<li>Running Tests</li>
+</ul>
+</div></p></li>
 </ul>
 </div>
+</section>
+<section class="slide" id="the-basics">
+<h2>The Basics</h2>
+
+</section>
+<section class="slide" id="automated-testing">
+<h2>Automated Testing</h2>
+<div class="ulist">
+<ul>
+<li>Unit Tests</li>
+<li>Integration Tests</li>
+<li><p>
+CI Server<div class="ulist">
+<ul>
+<li>Broken Windows</li>
+</ul>
+</div></p></li>
+</ul>
+</div>
+<section class="slide" id="are-automated-tests-important">
+<h2>Are Automated Tests Important?</h2>
+<div class="ulist">
+<ul>
+<li>Of Course!</li>
+</ul>
+</div>
+</section>
+</section>
+<section class="slide" id="testing-and-groovy">
+<h2>Testing And Groovy</h2>
+<div class="ulist">
+<ul>
+<li class="slide">Dynamic Typing vs. Static Typing</li>
+<li class="slide">Dynamic Dispatch</li>
+<li class="slide">Whole Classes Of Errors Now Have To Be Dealt With</li>
+<li class="slide">What Kind Of Test Is A Compiler?</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="running-tests">
+<h2>Running Tests</h2>
+
+</section>
+<section class="slide" id="running-unit-tests">
+<h2>Running Unit Tests</h2>
+<div class="listingblock">
+<div class="content">
+<pre><code>grails test-app unit:</code></pre>
+</div>
+</div>
+<div class="paragraph"><p>Or&#8230;&#8203;</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>./gradlew test</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="running-integration-tests">
+<h2>Running Integration Tests</h2>
+<div class="listingblock">
+<div class="content">
+<pre><code>./gradlew integrationTest</code></pre>
+</div>
+</div>
+<div class="paragraph"><p>Or&#8230;&#8203;</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>./gradlew iT</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="running-all-tests">
+<h2>Running All Tests</h2>
+<div class="listingblock">
+<div class="content">
+<pre><code>./gradlew check</code></pre>
+</div>
+</div>
+</section>
+<section class="slide" id="grails-testing">
+<h2>Grails Testing</h2>
+
 </section>
 <section class="slide" id="testing-domain-classes">
 <h2>Testing Domain Classes</h2>
@@ -1190,46 +1277,6 @@ Shorter Release Cycles<div class="ulist">
         <span class="comment">// ...</span>
     }
 }</code></pre>
-</div>
-</div>
-</section>
-<section class="slide" id="running-tests">
-<h2>Running Tests</h2>
-
-</section>
-<section class="slide" id="running-unit-tests">
-<h2>Running Unit Tests</h2>
-<div class="listingblock">
-<div class="content">
-<pre><code>grails test-app unit:</code></pre>
-</div>
-</div>
-<div class="paragraph"><p>Or&#8230;&#8203;</p></div>
-<div class="listingblock">
-<div class="content">
-<pre><code>./gradlew test</code></pre>
-</div>
-</div>
-</section>
-<section class="slide" id="running-integration-tests">
-<h2>Running Integration Tests</h2>
-<div class="listingblock">
-<div class="content">
-<pre><code>./gradlew integrationTest</code></pre>
-</div>
-</div>
-<div class="paragraph"><p>Or&#8230;&#8203;</p></div>
-<div class="listingblock">
-<div class="content">
-<pre><code>./gradlew iT</code></pre>
-</div>
-</div>
-</section>
-<section class="slide" id="running-all-tests">
-<h2>Running All Tests</h2>
-<div class="listingblock">
-<div class="content">
-<pre><code>./gradlew check</code></pre>
 </div>
 </div>
 </section>
