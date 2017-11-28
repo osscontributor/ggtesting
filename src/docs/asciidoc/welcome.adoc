@@ -17,6 +17,6 @@
 * Grails Co-Founder
 * OCI (Home Of Grails) Grails Practice Lead
 * @jeffscottbrown
-* brownj@objectomputing.com
+* brownj@objectcomputing.com
 * Slides : https://jeffbrown.github.io/ggtesting
 * Code : https://github.com/jeffbrown/ggtesting
