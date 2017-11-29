@@ -48,32 +48,12 @@ download {
     outputs.dir deckjsDir
 }
 
-task overwriteHamlTemplate {
-    doLast {
-        def documentTemplate = new File(templateDir, 'haml/document.html.haml')
-        def template = documentTemplate.text
-        
-        if (!template.contains('%footer(class="copyright")')) {
-            documentTemplate.withPrintWriter { writer ->
-                template.eachLine { line ->
-                    writer.println line
-                    if (line ==~ /\s+\.deck-container/) {
-                        writer.println '      %footer(class="copyright")'
-                        writer.println '        %img{:src=> image_uri("logo-circle.png"), :width=> "40", :align=> "left"} &copy; 2017 Object Computing Inc.'
-                    }
-                }
-            }
-        }
-    }   
-}
-overwriteHamlTemplate.dependsOn download
-
 asciidoctorj {
     version = '1.5.5'
 }
 
 asciidoctor {
-    dependsOn jrubyPrepare, overwriteHamlTemplate
+    dependsOn jrubyPrepare
 
     sources {
         include 'index.adoc'
@@ -83,15 +63,12 @@ asciidoctor {
         from (sourceDir) {
             include 'images/**'
         }
-        from ('src/docs') {
-            include 'theme/**'
-        }
         from (downloadDir) {
             include 'deck.js/**'
         }
     }
 
-    backends 'deckjs'
+    backends 'html5'
 
     attributes \
         'build-gradle': file('build.gradle'),
@@ -104,9 +81,7 @@ asciidoctor {
         'setanchors': '',
         'idprefix': '',
         'idseparator': '-',
-        'docinfo1': '',
-        'customcss': 'theme/fonts.css',
-        'status': ''
+        'docinfo1': ''
 
     options template_dirs : [new File(templateDir,'haml').absolutePath ]
 
