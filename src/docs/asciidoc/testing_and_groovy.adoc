@@ -16,3 +16,17 @@
 * Dynamic Dispatch
 * Whole Classes Of Errors Now Have To Be Dealt With
 * What Kind Of Test Is A Compiler?
+
+== JUnit, Spock, Etc...
+
+[options="step"]
+* JUnit
+** Long Time Player
+** Well Respected In The JVM Community
+** Works Great With Groovy
+** GroovyTestCase extends TestCase
+** Just Works™
+* Spock
+** Many Great Features
+** Expressive Test Structure
+** De-Facto Standard In Groovy Community
