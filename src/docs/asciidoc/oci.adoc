@@ -10,7 +10,7 @@
 == The Grails Team At OCI
 
 * May 2015
-** Jeff Brown and Graeme Rocher
+** Jeff Scott Brown and Graeme Rocher
 * November 2017
 ** 18 Full Time
 ** 13 U.S. - 4 Europe - 1 Australia
