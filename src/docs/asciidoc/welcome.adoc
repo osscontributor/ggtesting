@@ -1,16 +1,4 @@
 
-== WELCOME!
-
-* Welcome To G3 Summit 2017
-** Austin TX Is Awesome
-* Top Experts And Maintainers Are Here
-** Groovy, Grails, Gradle, Etc...
-* Come See Us At The OCI Table
-** Regster To Win!!
-*** Custom Grails Rubik's Cubes
-*** Google Home
-*** T-Shirts
-
 == About Me
 
 * Jeff Scott Brown
