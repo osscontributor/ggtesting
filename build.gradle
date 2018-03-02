@@ -87,3 +87,24 @@ asciidoctor {
 
     dependsOn download
 }
+
+
+task copyOciBrandingImages(type: Copy) {
+    from "${rootProject.projectDir}/src/main/resources/images"
+    into "${rootProject.buildDir}/asciidoc/html5/images"
+    include "**/*.png"
+}
+
+task ociBranding {
+    dependsOn copyOciBrandingImages
+    doLast {
+        File cssFile = new File("${rootProject.projectDir}/src/main/resources/css/main.css")
+        assert cssFile.exists()
+        String css = cssFile.text
+        File f = new File("${rootProject.buildDir}/asciidoc/html5/index.html")
+        assert f.exists()
+        f.text = f.text.replaceAll('</head>', "<style text='type/css'>${css}</style></head>".toString())
+    }
+}
+
+asciidoctor.finalizedBy(ociBranding)
